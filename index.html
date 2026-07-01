@@ -233,6 +233,14 @@
       <div id="paneReg" style="display:none">
         <div class="field"><label>Nome completo <span class="req">*</span></label><input id="rg-nome" placeholder="Ex.: João Mandlate"></div>
         <div class="field"><label>Função / Nível <span class="req">*</span></label><select id="rg-nivel"></select></div>
+        <div class="field"><label>Papéis no ERP (procurement)</label>
+          <div id="rg-papeis" style="display:flex;flex-wrap:wrap;gap:8px 14px;padding:4px 2px">
+            <label style="display:flex;gap:5px;align-items:center;font-weight:500"><input type="checkbox" value="Requisitante" checked style="width:auto">Requisitante</label>
+            <label style="display:flex;gap:5px;align-items:center;font-weight:500"><input type="checkbox" value="Aprovador" style="width:auto">Aprovador</label>
+            <label style="display:flex;gap:5px;align-items:center;font-weight:500"><input type="checkbox" value="Compras" style="width:auto">Compras</label>
+            <label style="display:flex;gap:5px;align-items:center;font-weight:500"><input type="checkbox" value="Armazém" style="width:auto">Armazém</label>
+          </div>
+        </div>
         <div class="field"><label>Criar código de acesso <span class="req">*</span></label><input id="rg-code" type="password" placeholder="Mín. 4 caracteres" autocomplete="off"></div>
         <div class="field"><label>Confirmar código <span class="req">*</span></label><input id="rg-code2" type="password" placeholder="Repita o código" autocomplete="off"></div>
         <button class="btn" id="doReg">Criar conta e entrar</button>
@@ -277,6 +285,72 @@
   </div>
 </div>
 
+<!-- NOTIFICATIONS -->
+<div class="overlay" id="notifOverlay" style="display:none">
+  <div class="modal" style="max-width:480px">
+    <div class="mh"><h2>Notificações</h2><p id="notifSub"></p></div>
+    <div class="mb">
+      <div style="display:flex;gap:8px;margin-bottom:12px"><button class="btn line sm" id="notifReadAll">Marcar todas como lidas</button><button class="btn line sm" id="notifClose" style="margin-left:auto">Fechar</button></div>
+      <div id="notifList" style="max-height:55vh;overflow:auto"></div>
+    </div>
+  </div>
+</div>
+
+<!-- REQUISIÇÃO ERP — DETALHE -->
+<div class="overlay" id="reqDetailOverlay" style="display:none">
+  <div class="modal" style="max-width:640px">
+    <div class="mh"><h2 id="rdTitle"></h2><p id="rdSub"></p></div>
+    <div class="mb" id="rdBody" style="max-height:70vh;overflow:auto"></div>
+  </div>
+</div>
+
+<!-- EMITIR / ENTREGAR DO INVENTÁRIO -->
+<div class="overlay" id="emitirOverlay" style="display:none">
+  <div class="modal" style="max-width:440px">
+    <div class="mh"><h2>Emitir / Entregar artigo</h2><p>Saída de stock para consumo em obra.</p></div>
+    <div class="mb">
+      <div class="field"><label>Artigo</label><select id="em-artigo"></select></div>
+      <div class="field"><label>Quantidade a entregar <span class="req">*</span></label><input id="em-qtd" type="number" min="0" step="0.01"></div>
+      <div class="field"><label>Projeto / Obra</label><select id="em-obra"></select></div>
+      <div class="field"><label>Recebido por</label><input id="em-receb" placeholder="Nome de quem recebe"></div>
+      <div class="field"><label>Notas</label><input id="em-notas"></div>
+      <div style="display:flex;gap:10px"><button class="btn good" id="em-confirm" style="flex:1">Confirmar entrega</button><button class="btn line" id="em-cancel">Cancelar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- NOVO / EDITAR ARTIGO -->
+<div class="overlay" id="artigoOverlay" style="display:none">
+  <div class="modal" style="max-width:560px">
+    <div class="mh"><h2 id="artTitle">Novo artigo</h2></div>
+    <div class="mb">
+      <div class="form">
+        <div class="field"><label>Nome <span class="req">*</span></label><input id="ar-nome"></div>
+        <div class="field"><label>Categoria</label><select id="ar-cat"></select></div>
+        <div class="field"><label>Unidade</label><input id="ar-un" placeholder="un / kg / m…"></div>
+        <div class="field"><label>Código interno</label><input id="ar-cod" placeholder="auto se vazio"></div>
+        <div class="field"><label>Stock mínimo</label><input id="ar-min" type="number" min="0" step="0.01"></div>
+        <div class="field"><label>Stock máximo</label><input id="ar-max" type="number" min="0" step="0.01"></div>
+        <div class="field"><label>Localização</label><input id="ar-loc" placeholder="Armazém / prateleira"></div>
+        <div class="field"><label>Projeto / Obra</label><select id="ar-obra"></select></div>
+        <div class="field"><label>Qtd. inicial em stock</label><input id="ar-qtd" type="number" min="0" step="0.01"></div>
+        <div class="field"><label>Preço unitário (MT)</label><input id="ar-preco" type="number" min="0" step="0.01"></div>
+        <div class="field wide"><label>Descrição</label><input id="ar-desc"></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:14px"><button class="btn" id="ar-save" style="flex:1">Guardar artigo</button><button class="btn line" id="ar-cancel">Cancelar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- UTILIZADORES & PAPÉIS (Direção) -->
+<div class="overlay" id="usersOverlay" style="display:none">
+  <div class="modal" style="max-width:640px">
+    <div class="mh"><h2>Utilizadores &amp; papéis</h2><p>Atribua papéis do ERP a cada membro da equipa.</p></div>
+    <div class="mb" id="usersBody" style="max-height:70vh;overflow:auto"></div>
+    <div class="mb" style="padding-top:0"><button class="btn line" id="usersClose">Fechar</button></div>
+  </div>
+</div>
+
 <header class="app">
   <div class="bar">
     <div class="brand">
@@ -287,6 +361,7 @@
     <div class="topctrl">
       <span class="badge-online" id="onlineBadge"><span class="dot"></span><span id="onlineTxt">Partilhado</span></span>
       <div class="userchip" id="userChip" style="display:none"><div class="ua" id="uaInit"></div><div><div class="un" id="uaName"></div><div class="ur" id="uaRole"></div></div></div>
+      <button class="ghost" id="btnBell" title="Notificações" style="position:relative">🔔<span id="bellCount" style="display:none;position:absolute;top:-5px;right:-5px;background:var(--brand);color:#fff;font-size:9px;font-weight:800;border-radius:20px;padding:1px 5px">0</span></button>
       <button class="ghost" id="btnInstall" title="Instalar aplicação" style="display:none">⤓ Instalar</button>
       <button class="ghost" id="btnCloud" title="Sincronização na nuvem (multi-dispositivo)">☁ Nuvem</button>
       <button class="ghost" id="btnSync" title="Atualizar">↻</button>
@@ -298,9 +373,14 @@
   <nav class="tabs">
     <div class="tabsinner" id="tabs">
       <button class="tab active" data-view="painel">Painel</button>
+      <button class="tab" data-view="painelerp">Painel ERP</button>
       <button class="tab" data-view="abast">Abastecimentos</button>
       <button class="tab" data-view="rotas">Rotas</button>
-      <button class="tab" data-view="requis">Requisições<span class="nbadge" id="reqBadge" style="display:none">0</span></button>
+      <button class="tab" data-view="requis">Req. Combustível<span class="nbadge" id="reqBadge" style="display:none">0</span></button>
+      <button class="tab" data-view="erpreq">Requisições<span class="nbadge" id="erpReqBadge" style="display:none">0</span></button>
+      <button class="tab" data-view="inv">Inventário</button>
+      <button class="tab" data-view="mov">Movimentos</button>
+      <button class="tab" data-view="forn">Fornecedores</button>
       <button class="tab" data-view="viaturas">Viaturas</button>
       <button class="tab" data-view="hist">Histórico</button>
       <button class="tab" data-view="relatorios">Relatórios</button>
@@ -412,6 +492,105 @@
   </section>
 
   <!-- RELATÓRIOS -->
+  <!-- ================= PAINEL ERP ================= -->
+  <section class="view" id="view-painelerp">
+    <div class="viewhead"><div><div class="eyebrow">Procurement &amp; Inventário</div><h2>Painel ERP</h2><div class="hint">Requisições, compras, stock e consumo em tempo real.</div></div>
+      <div><button class="btn line sm" id="btnUsers" style="display:none">Gerir utilizadores &amp; papéis</button></div></div>
+    <div class="grid kpis" id="erpKpis"></div>
+    <div class="two">
+      <div class="panel"><div class="ph"><h3>Custo de aquisições por categoria</h3><span class="eyebrow">MT</span></div><div class="pb" id="erpCatBars"></div></div>
+      <div class="panel"><div class="ph"><h3>Aquisições por mês</h3><span class="eyebrow">MT</span></div><div class="pb" id="erpMonthBars"></div></div>
+    </div>
+    <div class="two">
+      <div class="panel"><div class="ph"><h3>Consumo por projeto / obra</h3><span class="eyebrow">MT</span></div><div class="pb" id="erpProjBars"></div></div>
+      <div class="panel"><div class="ph"><h3>Artigos com stock crítico</h3><span class="eyebrow" id="critCount"></span></div><div class="pb" id="erpCritico"></div></div>
+    </div>
+  </section>
+
+  <!-- ================= REQUISIÇÕES (ERP) ================= -->
+  <section class="view" id="view-erpreq">
+    <div class="viewhead"><div><div class="eyebrow">Procurement</div><h2>Requisições de Artigos</h2><div class="hint">Materiais, ferramentas, consumíveis, equipamentos, peças, EPIs. Fluxo: Base → Aprovação → Compras → Armazém.</div></div></div>
+    <div class="panel formwrap"><div class="pb">
+      <div class="form" id="formErpReq">
+        <div class="field"><label>Data <span class="req">*</span></label><input id="e-data" type="date"></div>
+        <div class="field"><label>Projeto / Obra <span class="req">*</span></label><select id="e-obra"></select></div>
+        <div class="field"><label>Local</label><input id="e-local" placeholder="Ex.: Armazém central / Estaleiro"></div>
+        <div class="field"><label>Departamento</label><input id="e-depto" placeholder="Ex.: Produção / Manutenção"></div>
+        <div class="field"><label>Prioridade <span class="req">*</span></label><select id="e-prio"><option>Baixa</option><option selected>Média</option><option>Alta</option><option>Urgente</option></select></div>
+        <div class="field wide"><label>Justificação</label><input id="e-just" placeholder="Motivo da requisição"></div>
+      </div>
+      <div style="margin-top:16px;border-top:1px dashed var(--line);padding-top:14px">
+        <div class="eyebrow" style="margin-bottom:10px">Artigos da requisição</div>
+        <div class="form" id="itemForm">
+          <div class="field"><label>Categoria <span class="req">*</span></label><select id="i-cat"></select></div>
+          <div class="field"><label>Artigo <span class="req">*</span></label><input id="i-nome" list="artList" placeholder="Nome do artigo"><datalist id="artList"></datalist></div>
+          <div class="field"><label>Unidade</label><input id="i-un" placeholder="un / kg / m / saco…"></div>
+          <div class="field"><label>Quantidade <span class="req">*</span></label><input id="i-qtd" type="number" min="0" step="0.01"></div>
+          <div class="field"><label>Obs.</label><input id="i-obs" placeholder="Especificação"></div>
+          <div class="field"><label>&nbsp;</label><button class="btn line" id="addItem">+ Adicionar artigo</button></div>
+        </div>
+        <div id="itemList"></div>
+      </div>
+      <div class="formfoot"><button class="btn line" id="saveRascunho">Guardar rascunho</button><button class="btn" id="submitReq">Submeter requisição</button><span class="editing-note" id="erpReqWho"></span></div>
+    </div></div>
+    <div class="filters" style="margin-top:16px">
+      <div class="field"><label>Pesquisar</label><input id="er-q" placeholder="Artigo, requisição, requisitante…"></div>
+      <div class="field"><label>Estado</label><select id="er-estado"><option value="">Todos</option></select></div>
+      <div class="field"><label>Prioridade</label><select id="er-prio"><option value="">Todas</option><option>Baixa</option><option>Média</option><option>Alta</option><option>Urgente</option></select></div>
+      <div class="field"><label>Projeto / Obra</label><select id="er-obra"><option value="">Todos</option></select></div>
+      <div class="field"><label>Ver</label><select id="er-scope"><option value="all">Todas</option><option value="mine">As minhas</option><option value="todo">A aguardar a minha ação</option></select></div>
+    </div>
+    <div id="erpReqList"></div>
+    <div id="erpReqPager" style="display:flex;gap:8px;justify-content:center;margin-top:14px"></div>
+  </section>
+
+  <!-- ================= INVENTÁRIO ================= -->
+  <section class="view" id="view-inv">
+    <div class="viewhead"><div><div class="eyebrow">Armazém</div><h2>Inventário</h2><div class="hint">Saldos atualizados automaticamente a cada compra, entrega, transferência, devolução ou ajuste.</div></div>
+      <div><button class="btn line sm" id="btnNovoArtigo">+ Novo artigo</button> <button class="btn sm" id="btnEmitir">Emitir / Entregar</button></div></div>
+    <div class="filters">
+      <div class="field"><label>Pesquisar</label><input id="inv-q" placeholder="Código, nome…"></div>
+      <div class="field"><label>Categoria</label><select id="inv-cat"><option value="">Todas</option></select></div>
+      <div class="field"><label>Projeto / Obra</label><select id="inv-obra"><option value="">Todos</option></select></div>
+      <div class="field"><label>Mostrar</label><select id="inv-flt"><option value="">Todos</option><option value="crit">Só stock crítico</option><option value="disp">Só com disponível</option></select></div>
+    </div>
+    <div id="tblInv"></div>
+  </section>
+
+  <!-- ================= MOVIMENTOS ================= -->
+  <section class="view" id="view-mov">
+    <div class="viewhead"><div><div class="eyebrow">Stock</div><h2>Movimentos de Stock</h2><div class="hint">Entradas (compra, devolução, transferência, ajuste) e saídas (consumo, empréstimo, transferência, perda, dano).</div></div></div>
+    <div class="panel formwrap"><div class="pb">
+      <div class="form" id="formMov">
+        <div class="field"><label>Data <span class="req">*</span></label><input id="m-data" type="date"></div>
+        <div class="field"><label>Artigo <span class="req">*</span></label><select id="m-artigo"></select></div>
+        <div class="field"><label>Tipo <span class="req">*</span></label><select id="m-tipo"></select></div>
+        <div class="field"><label>Quantidade <span class="req">*</span></label><input id="m-qtd" type="number" min="0" step="0.01"></div>
+        <div class="field"><label>Projeto / Obra</label><select id="m-obra"></select></div>
+        <div class="field"><label>Recebido / Destinatário</label><input id="m-dest" placeholder="Nome"></div>
+        <div class="field wide"><label>Notas</label><input id="m-notas"></div>
+      </div>
+      <div class="formfoot"><button class="btn" id="saveMov">Registar movimento</button></div>
+    </div></div>
+    <div class="filters" style="margin-top:16px"><div class="field"><label>Pesquisar</label><input id="mv-q" placeholder="Artigo, tipo, obra…"></div><div class="field"><label>Tipo</label><select id="mv-tipo"><option value="">Todos</option></select></div></div>
+    <div id="tblMov"></div>
+  </section>
+
+  <!-- ================= FORNECEDORES ================= -->
+  <section class="view" id="view-forn">
+    <div class="viewhead"><div><div class="eyebrow">Compras</div><h2>Fornecedores</h2><div class="hint">Registo de fornecedores usados nas compras.</div></div></div>
+    <div class="panel formwrap"><div class="pb">
+      <div class="form" id="formForn">
+        <div class="field"><label>Nome <span class="req">*</span></label><input id="f-nome" placeholder="Ex.: Cimentos de Moçambique"></div>
+        <div class="field"><label>NUIT</label><input id="f-nuit"></div>
+        <div class="field"><label>Contacto</label><input id="f-contacto" placeholder="Telefone / email"></div>
+        <div class="field"><label>Localidade</label><input id="f-local"></div>
+      </div>
+      <div class="formfoot"><button class="btn" id="saveForn">Guardar fornecedor</button><button class="btn line" id="cancelForn" style="display:none">Cancelar</button></div>
+    </div></div>
+    <div id="tblForn"></div>
+  </section>
+
   <section class="view" id="view-relatorios">
     <div class="viewhead"><div><div class="eyebrow">Exportação</div><h2>Relatórios</h2><div class="hint">Filtre, exporte para Excel (CSV) ou imprima / guarde em PDF.</div></div></div>
     <div class="filters">
@@ -445,7 +624,8 @@
    Armazenamento partilhado (window.storage) com alternativa local.
 =========================================================== */
 const SHARED=true;
-const KEYS={u:'frota:users',v:'frota:viaturas',a:'frota:abastecimentos',r:'frota:rotas',q:'frota:requisicoes',audit:'frota:auditoria',c:'frota:config'};
+const KEYS={u:'frota:users',v:'frota:viaturas',a:'frota:abastecimentos',r:'frota:rotas',q:'frota:requisicoes',audit:'frota:auditoria',c:'frota:config',
+  ecat:'frota:erp_categorias',eforn:'frota:erp_fornecedores',eart:'frota:erp_artigos',ereq:'frota:erp_requisicoes',emov:'frota:erp_movimentos',enot:'frota:erp_notificacoes'};
 const SESSION='frota:session';
 const hasWS = typeof window!=='undefined' && window.storage && typeof window.storage.get==='function';
 /* Nuvem (Firebase). Para ativar em TODOS os dispositivos de uma vez, preencha aqui
@@ -476,7 +656,8 @@ const CENTROS=[
 const OUTROS_DESTINOS=['Escritório / Estaleiro','Nampula-Cidade','Oficina / Manutenção','Fornecedor / Compras','Outro'];
 const FINALIDADES=['Obra – Centro de Saúde','Administrativa','Manutenção','Logística / Compras','Supervisão / Fiscalização','Transporte de pessoal','Outro'];
 
-let DB={users:[],viaturas:[],abastecimentos:[],rotas:[],requisicoes:[],auditoria:[],config:{gestor:''}};
+let DB={users:[],viaturas:[],abastecimentos:[],rotas:[],requisicoes:[],auditoria:[],config:{gestor:''},
+  categorias:[],fornecedores:[],artigos:[],ereqs:[],movimentos:[],notificacoes:[]};
 let CURRENT=null;
 
 /* ---------- storage ---------- */
@@ -493,7 +674,8 @@ async function saveKey(k,val){
 async function commit(coll,key){const ok=await saveKey(key,DB[coll]);if(!ok)toast('Não foi possível guardar.',true);return ok;}
 
 /* ---------- nuvem (Firebase) ---------- */
-const CMAP={u:'users',v:'viaturas',a:'abastecimentos',r:'rotas',q:'requisicoes',audit:'auditoria',c:'config'};
+const CMAP={u:'users',v:'viaturas',a:'abastecimentos',r:'rotas',q:'requisicoes',audit:'auditoria',c:'config',
+  ecat:'categorias',eforn:'fornecedores',eart:'artigos',ereq:'ereqs',emov:'movimentos',enot:'notificacoes'};
 async function initCloud(){
   const cfg=getFbConfig();
   if(!cfg||typeof firebase==='undefined')return false;
@@ -591,9 +773,12 @@ $('#doReg').onclick=async()=>{
   if(DB.users.some(u=>u.nome.toLowerCase()===nome.toLowerCase())){toast('Já existe uma conta com este nome.',true);return;}
   if(c.length<4){toast('O código deve ter pelo menos 4 caracteres.',true);return;}
   if(c!==c2){toast('Os códigos não coincidem.',true);return;}
-  const u={id:uid(),nome,nivel,codigoHash:await hashCode(c),criadoEm:new Date().toISOString()};
+  const papeis=Array.from(document.querySelectorAll('#rg-papeis input:checked')).map(x=>x.value);
+  if(nivel>=4){['Requisitante','Aprovador','Compras','Armazém','Direção'].forEach(p=>{if(!papeis.includes(p))papeis.push(p);});}
+  if(!papeis.length)papeis.push('Requisitante');
+  const u={id:uid(),nome,nivel,papeis,codigoHash:await hashCode(c),criadoEm:new Date().toISOString()};
   DB.users.push(u);await commit('users',KEYS.u);
-  setSession(u);await logAudit('adicionado','Utilizador',`${nome} (${nivelLabel(nivel)})`);
+  setSession(u);await logAudit('adicionado','Utilizador',`${nome} (${nivelLabel(nivel)}) · papéis: ${papeis.join(', ')}`);
   enterApp();toast('Conta criada. Bem-vindo, '+nome.split(' ')[0]+'.');
 };
 $('#doLogin').onclick=async()=>{
@@ -811,11 +996,11 @@ async function sync(notify){const map={u:'users',v:'viaturas',a:'abastecimentos'
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&hasWS&&CURRENT)sync(false);});
 
 /* ---------- nav ---------- */
-function switchView(name){$$('.tab').forEach(t=>t.classList.toggle('active',t.dataset.view===name));$$('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));if(name==='relatorios')renderRelatorios();if(name==='painel')renderPainel();if(name==='requis')renderReq();if(name==='hist')renderHist();}
+function switchView(name){$$('.tab').forEach(t=>t.classList.toggle('active',t.dataset.view===name));$$('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+name));if(name==='relatorios')renderRelatorios();if(name==='painel')renderPainel();if(name==='requis')renderReq();if(name==='hist')renderHist();if(typeof onSwitchERP==='function')onSwitchERP(name);}
 $('#tabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(t)switchView(t.dataset.view);});
 $('#periodSel').addEventListener('change',renderPainel);
 
-function renderAll(){buildSelectors();renderViaturas();renderAbast();renderRotas();renderReq();renderHist();renderPainel();renderRelatorios();}
+function renderAll(){buildSelectors();renderViaturas();renderAbast();renderRotas();renderReq();renderHist();renderPainel();renderRelatorios();if(typeof renderERP==='function')renderERP();if(typeof renderNotifBadge==='function')renderNotifBadge();}
 
 /* ---------- init ---------- */
 async function init(){
@@ -837,7 +1022,323 @@ function setBackendBadge(){
   else if(BACKEND==='shared'){b.className='badge-online';t.textContent='Online · plataforma';$('#storeStatus').textContent='Partilhado na plataforma Claude. Toque em “Nuvem” para usar como app independente em vários dispositivos.';$('#loginLocalNote').textContent='Contas partilhadas na plataforma.';}
   else{b.className='badge-online local';t.textContent='Modo local';$('#storeStatus').textContent='Modo local — dados só neste dispositivo. Toque em “Nuvem” para sincronizar entre telemóveis e computadores.';$('#loginLocalNote').textContent='Modo local: configure a nuvem para multi-dispositivo.';}
 }
+/* init() é chamado no final do módulo ERP */</script>
+<script>
+/* ================================================================
+   MÓDULO ERP — Requisições · Aprovação · Compras · Inventário ·
+   Movimentos · Consumo · Notificações · Painel
+   (integra-se com o app existente; reutiliza DB, CURRENT, helpers)
+================================================================ */
+const ERP_CATS=['Materiais','Ferramentas','Consumíveis','Equipamentos','Peças sobressalentes','EPIs','Outros'];
+const ERP_ESTADOS=['Rascunho','Submetida','Em aprovação','Aprovada','Rejeitada','Em compra','Comprada','Recebida','Parcialmente entregue','Concluída','Cancelada'];
+const MOV_ENTRADAS=['Compra','Devolução','Transferência (entrada)','Ajuste (+)'];
+const MOV_SAIDAS=['Consumo em obra','Empréstimo','Transferência (saída)','Perda','Dano','Ajuste (-)'];
+const ERP_PRIOS=['Baixa','Média','Alta','Urgente'];
+
+let pendingItens=[];
+let erpReqPage=0; const ERP_PAGE=8;
+let editFornId=null, reqOpenId=null, editArtId=null;
+
+/* ---------- permissões ---------- */
+function hasPapel(u,p){return u&&Array.isArray(u.papeis)&&u.papeis.includes(p);}
+function isDirecao(u){return u&&(u.nivel>=4||hasPapel(u,'Direção'));}
+function canAprovar(){return isDirecao(CURRENT)||hasPapel(CURRENT,'Aprovador');}
+function canComprar(){return isDirecao(CURRENT)||hasPapel(CURRENT,'Compras');}
+function canArmazem(){return isDirecao(CURRENT)||hasPapel(CURRENT,'Armazém');}
+
+/* ---------- utilitários ---------- */
+function artObj(id){return DB.artigos.find(a=>a.id===id);}
+function nextErpNum(){let m=0;DB.ereqs.forEach(q=>{const x=/REQ-A-(\d+)/.exec(q.numero||'');if(x)m=Math.max(m,+x[1]);});return 'REQ-A-'+String(m+1).padStart(3,'0');}
+function nextArtCode(){let m=0;DB.artigos.forEach(a=>{const x=/ART-(\d+)/.exec(a.codigoInterno||'');if(x)m=Math.max(m,+x[1]);});return 'ART-'+String(m+1).padStart(3,'0');}
+function estadoCls(e){return ({'Rascunho':'rej','Submetida':'pend','Em aprovação':'pend','Aprovada':'apr','Rejeitada':'rej','Em compra':'pend','Comprada':'rec','Recebida':'rec','Parcialmente entregue':'pend','Concluída':'apr','Cancelada':'rej'})[e]||'rej';}
+function addHist(q,acao,nota){q.historico=q.historico||[];q.historico.push({data:new Date().toISOString(),userNome:CURRENT?CURRENT.nome:'—',papel:((CURRENT&&CURRENT.papeis)||[]).join('/'),acao,nota:nota||''});}
+function catList(){const custom=DB.categorias||[];return ERP_CATS.concat(custom.filter(c=>!ERP_CATS.includes(c)));}
+function catOptions(all){return (all?'<option value="">Todas</option>':'')+catList().map(c=>`<option>${esc(c)}</option>`).join('');}
+
+/* ---------- notificações ---------- */
+async function pushNotif(evento,mensagem,opt){opt=opt||{};DB.notificacoes.unshift({id:uid(),data:new Date().toISOString(),evento,mensagem,paraPapeis:opt.paraPapeis||[],paraUserId:opt.paraUserId||null,refId:opt.refId||null,lidaPor:[]});if(DB.notificacoes.length>500)DB.notificacoes.length=500;await commit('notificacoes',KEYS.enot);}
+function notifVisivel(n){if(!CURRENT)return false;if(n.paraUserId&&n.paraUserId===CURRENT.id)return true;if(isDirecao(CURRENT))return true;if(n.paraPapeis&&n.paraPapeis.some(p=>hasPapel(CURRENT,p)))return true;return false;}
+function notifNaoLida(n){return CURRENT&&!(n.lidaPor||[]).includes(CURRENT.id);}
+function renderNotifBadge(){if(!CURRENT){$('#bellCount').style.display='none';return;}const n=DB.notificacoes.filter(x=>notifVisivel(x)&&notifNaoLida(x)).length;const b=$('#bellCount');if(n>0){b.style.display='';b.textContent=n>99?'99+':n;}else b.style.display='none';}
+function openNotif(){const list=DB.notificacoes.filter(notifVisivel);$('#notifSub').textContent=list.length?`${list.filter(notifNaoLida).length} por ler`:'Sem notificações.';
+  $('#notifList').innerHTML=list.length?list.slice(0,120).map(n=>`<div style="padding:11px 12px;border:1px solid var(--line);border-radius:9px;margin-bottom:8px;background:${notifNaoLida(n)?'var(--brand-soft)':'#fff'}">
+    <div style="display:flex;justify-content:space-between;gap:8px"><b style="font-size:12.5px">${esc(n.evento)}</b><span style="font-size:11px;color:var(--muted)">${dtPT(n.data)}</span></div>
+    <div style="font-size:13px;margin-top:3px">${esc(n.mensagem)}</div>
+    ${notifNaoLida(n)?`<button class="iconbtn" data-enotif-read="${n.id}" style="margin-top:7px">Marcar como lida</button>`:''}</div>`).join(''):`<div class="empty"><p>Sem notificações.</p></div>`;
+  $('#notifOverlay').style.display='flex';}
+
+/* ---------- inventário / movimentos ---------- */
+function findOrCreateArticle(nome,categoria,unidade){
+  let a=DB.artigos.find(x=>x.nome.trim().toLowerCase()===nome.trim().toLowerCase()&&(x.categoria||'')===(categoria||''));
+  if(a)return a;
+  a={id:uid(),codigoInterno:nextArtCode(),codigoFornecedor:'',categoria:categoria||'Outros',nome:nome.trim(),descricao:'',unidade:unidade||'un',
+     qtdAdquirida:0,qtdUtilizada:0,qtdReservada:0,qtdDisponivel:0,stockMin:0,stockMax:0,localizacao:'',fornecedor:'',precoUnitario:0,valorTotal:0,projeto:'',dataAquisicao:'',criadoEm:new Date().toISOString()};
+  DB.artigos.push(a);return a;
+}
+async function doMovement(artId,tipo,qtd,opt){opt=opt||{};const a=artObj(artId);if(!a)return null;
+  qtd=Math.abs(toNum(qtd));if(qtd<=0)return null;
+  const entrada=MOV_ENTRADAS.includes(tipo);
+  a.qtdAdquirida=a.qtdAdquirida||0;a.qtdUtilizada=a.qtdUtilizada||0;a.qtdDisponivel=a.qtdDisponivel||0;
+  if(entrada){
+    if(tipo==='Compra'||tipo==='Ajuste (+)'){a.qtdAdquirida+=qtd;a.qtdDisponivel+=qtd;}
+    else if(tipo==='Devolução'){a.qtdDisponivel+=qtd;a.qtdUtilizada=Math.max(0,a.qtdUtilizada-qtd);}
+    else{a.qtdDisponivel+=qtd;}
+  }else{
+    a.qtdDisponivel-=qtd;
+    if(tipo==='Consumo em obra'||tipo==='Empréstimo')a.qtdUtilizada+=qtd;
+  }
+  if(opt.precoUnit)a.precoUnitario=toNum(opt.precoUnit);
+  a.valorTotal=(a.qtdAdquirida||0)*(a.precoUnitario||0);
+  if(opt.obra&&entrada&&tipo==='Compra')a.projeto=opt.obra;
+  const precoUnit=toNum(opt.precoUnit||a.precoUnitario||0);
+  const mov={id:uid(),data:opt.data||todayISO(),artigoId:a.id,artigoNome:a.nome,categoria:a.categoria,tipo,sinal:entrada?1:-1,qtd,obra:opt.obra||'',dest:opt.dest||'',notas:opt.notas||'',precoUnit,custo:qtd*precoUnit,userId:CURRENT&&CURRENT.id,userNome:CURRENT?CURRENT.nome:'—',criadoEm:new Date().toISOString()};
+  DB.movimentos.unshift(mov);
+  await commit('artigos',KEYS.eart);await commit('movimentos',KEYS.emov);
+  if(a.stockMin>0&&a.qtdDisponivel<=a.stockMin){await pushNotif('Stock crítico',`${a.nome}: disponível ${fL(a.qtdDisponivel)} ${a.unidade} (mín. ${fL(a.stockMin)})`,{paraPapeis:['Compras','Armazém']});}
+  return mov;
+}
+
+/* ---------- selects ---------- */
+function buildERPSelectors(){
+  ['#e-obra','#m-obra','#em-obra','#ar-obra'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML=destinoOptions(false);el.value=v;});
+  ['#er-obra','#inv-obra'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML=destinoOptions(true);el.value=v;});
+  ['#i-cat','#ar-cat'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML='<option value="">— Selecionar —</option>'+catOptions(false);el.value=v;});
+  ['#inv-cat'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML=catOptions(true);el.value=v;});
+  const est=$('#er-estado');if(est){const v=est.value;est.innerHTML='<option value="">Todos</option>'+ERP_ESTADOS.map(e=>`<option>${esc(e)}</option>`).join('');est.value=v;}
+  const artOpts=DB.artigos.map(a=>`<option value="${a.id}">${esc(a.codigoInterno)} — ${esc(a.nome)} (disp: ${fL(a.qtdDisponivel)} ${esc(a.unidade)})</option>`).join('');
+  ['#m-artigo','#em-artigo'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML='<option value="">— Selecionar —</option>'+artOpts;el.value=v;});
+  const mt=$('#m-tipo');if(mt){const v=mt.value;mt.innerHTML='<optgroup label="Entradas">'+MOV_ENTRADAS.map(t=>`<option>${esc(t)}</option>`).join('')+'</optgroup><optgroup label="Saídas">'+MOV_SAIDAS.map(t=>`<option>${esc(t)}</option>`).join('')+'</optgroup>';mt.value=v;}
+  const mvt=$('#mv-tipo');if(mvt){const v=mvt.value;mvt.innerHTML='<option value="">Todos</option>'+MOV_ENTRADAS.concat(MOV_SAIDAS).map(t=>`<option>${esc(t)}</option>`).join('');mvt.value=v;}
+  const dl=$('#artList');if(dl)dl.innerHTML=DB.artigos.map(a=>`<option value="${esc(a.nome)}">`).join('');
+  if($('#erpReqWho'))$('#erpReqWho').textContent=CURRENT?('Requisitante: '+CURRENT.nome):'';
+  if($('#btnUsers'))$('#btnUsers').style.display=isDirecao(CURRENT)?'':'none';
+}
+
+/* ---------- item builder ---------- */
+$('#addItem')&&($('#addItem').onclick=()=>{
+  const cat=$('#i-cat').value,nome=$('#i-nome').value.trim(),un=$('#i-un').value.trim()||'un',qtd=toNum($('#i-qtd').value),obs=$('#i-obs').value.trim();
+  if(!cat){toast('Selecione a categoria.',true);return;}if(!nome){toast('Indique o artigo.',true);return;}if(qtd<=0){toast('Indique a quantidade.',true);return;}
+  pendingItens.push({id:uid(),categoria:cat,nome,unidade:un,qtd,obs,qtdAprovada:qtd,aprovado:false,precoUnitario:0,fornecedor:'',artigoId:null,qtdEntregue:0});
+  $('#i-nome').value='';$('#i-un').value='';$('#i-qtd').value='';$('#i-obs').value='';renderPendingItens();
+});
+function renderPendingItens(){const el=$('#itemList');if(!pendingItens.length){el.innerHTML='';return;}
+  el.innerHTML=`<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Categoria</th><th>Artigo</th><th class="r">Qtd</th><th>Un</th><th></th></tr></thead><tbody>${pendingItens.map(i=>`<tr><td>${esc(i.categoria)}</td><td>${esc(i.nome)}</td><td class="r">${fL(i.qtd)}</td><td>${esc(i.unidade)}</td><td><div class="rowact"><button class="iconbtn del" data-edelitem="${i.id}">✕</button></div></td></tr>`).join('')}</tbody></table></div>`;}
+
+async function guardarReq(estado){
+  const obra=$('#e-obra').value,data=$('#e-data').value;
+  if(!data){toast('Indique a data.',true);return;}if(!obra){toast('Selecione o projeto/obra.',true);return;}
+  if(!pendingItens.length){toast('Adicione pelo menos um artigo.',true);return;}
+  const q={id:uid(),numero:nextErpNum(),data,obra,local:$('#e-local').value.trim(),departamento:$('#e-depto').value.trim(),prioridade:$('#e-prio').value,justificacao:$('#e-just').value.trim(),
+    itens:JSON.parse(JSON.stringify(pendingItens)),estado,solicitanteId:CURRENT.id,solicitanteNome:CURRENT.nome,historico:[],criadoEm:new Date().toISOString()};
+  addHist(q,estado==='Rascunho'?'Rascunho criado':'Requisição submetida');
+  DB.ereqs.push(q);await commit('ereqs',KEYS.ereq);
+  await logAudit(estado==='Rascunho'?'adicionado':'requisitado','Requisição de artigos',`${q.numero} · ${q.itens.length} artigo(s) · ${obra}`,{numero:q.numero});
+  if(estado!=='Rascunho')await pushNotif('Nova requisição',`${q.numero} submetida por ${CURRENT.nome} (${q.itens.length} artigo(s), ${q.prioridade})`,{paraPapeis:['Aprovador'],refId:q.id});
+  pendingItens=[];renderPendingItens();['e-local','e-depto','e-just'].forEach(i=>$('#'+i).value='');$('#e-data').value=todayISO();$('#e-prio').value='Média';
+  renderERP();toast('Requisição '+q.numero+' guardada ('+estado+').');
+}
+$('#saveRascunho')&&($('#saveRascunho').onclick=()=>guardarReq('Rascunho'));
+$('#submitReq')&&($('#submitReq').onclick=()=>guardarReq('Submetida'));
+
+/* ---------- lista de requisições ---------- */
+function reqPodeAgir(q){if(!CURRENT)return false;
+  if((q.estado==='Submetida'||q.estado==='Em aprovação')&&canAprovar())return true;
+  if(q.estado==='Aprovada'&&canComprar())return true;
+  if(q.estado==='Em compra'&&canComprar())return true;
+  if(q.estado==='Comprada'&&canArmazem())return true;
+  if(q.estado==='Recebida'&&canArmazem())return true;
+  if(q.estado==='Rascunho'&&q.solicitanteId===CURRENT.id)return true;
+  return false;}
+function renderErpReqList(){
+  const wrap=$('#erpReqList');if(!wrap)return;
+  const term=($('#er-q').value||'').toLowerCase(),est=$('#er-estado').value,prio=$('#er-prio').value,obra=$('#er-obra').value,scope=$('#er-scope').value;
+  let list=[...DB.ereqs].sort((a,b)=>a.criadoEm<b.criadoEm?1:-1);
+  if(est)list=list.filter(q=>q.estado===est);
+  if(prio)list=list.filter(q=>q.prioridade===prio);
+  if(obra)list=list.filter(q=>q.obra===obra);
+  if(scope==='mine')list=list.filter(q=>CURRENT&&q.solicitanteId===CURRENT.id);
+  if(scope==='todo')list=list.filter(reqPodeAgir);
+  if(term)list=list.filter(q=>(q.numero+' '+q.obra+' '+q.solicitanteNome+' '+q.itens.map(i=>i.nome).join(' ')).toLowerCase().includes(term));
+  const total=list.length,pages=Math.max(1,Math.ceil(total/ERP_PAGE));if(erpReqPage>=pages)erpReqPage=0;
+  const slice=list.slice(erpReqPage*ERP_PAGE,erpReqPage*ERP_PAGE+ERP_PAGE);
+  if(!total){wrap.innerHTML=`<div class="panel"><div class="empty"><p>Sem requisições.</p></div></div>`;$('#erpReqPager').innerHTML='';return;}
+  wrap.innerHTML=slice.map(q=>{const nItens=q.itens.length,agir=reqPodeAgir(q);const prioCol=q.prioridade==='Urgente'?'var(--brand)':q.prioridade==='Alta'?'var(--amber)':'var(--muted)';
+    return `<div class="reqcard"><div class="rch"><span class="rnum">${esc(q.numero)}</span><span class="st ${estadoCls(q.estado)}">${esc(q.estado)}</span>
+      <span style="font-size:11.5px;font-weight:700;color:${prioCol}">${esc(q.prioridade)}</span><span style="font-size:12.5px;color:var(--muted)">${dPT(q.data)}</span>
+      <div class="topspace" style="flex:1"></div><span class="tagobra">${esc(q.obra)}</span></div>
+      <div class="rbody"><div class="ri"><div class="k">Requisitante</div><div class="v">${esc(q.solicitanteNome)}</div></div>
+      <div class="ri"><div class="k">Artigos</div><div class="v">${nItens} artigo(s): ${esc(q.itens.slice(0,3).map(i=>i.nome).join(', '))}${nItens>3?'…':''}</div></div>
+      <div class="ri"><div class="k">Departamento</div><div class="v">${esc(q.departamento||'—')}</div></div></div>
+      <div class="rfoot"><button class="btn line sm" data-eopen="${q.id}">Ver detalhe / histórico</button>${agir?`<button class="btn sm" data-eopen="${q.id}">Ação necessária ▸</button>`:''}</div></div>`;}).join('');
+  $('#erpReqPager').innerHTML=pages>1?Array.from({length:pages},(_,i)=>`<button class="iconbtn ${i===erpReqPage?'':''}" data-epage="${i}" style="${i===erpReqPage?'background:var(--brand);color:#fff;border-color:var(--brand)':''}">${i+1}</button>`).join(''):'';
+}
+
+/* ---------- detalhe / ações da requisição ---------- */
+function openReqDetail(id){const q=DB.ereqs.find(x=>x.id===id);if(!q)return;reqOpenId=id;
+  $('#rdTitle').textContent=q.numero+' — '+q.estado;
+  $('#rdSub').textContent=`${q.obra} · ${q.prioridade} · ${dPT(q.data)} · ${q.solicitanteNome}`;
+  let itensHtml;
+  const modoAprov=(q.estado==='Submetida'||q.estado==='Em aprovação')&&canAprovar();
+  const modoCompra=q.estado==='Em compra'&&canComprar();
+  itensHtml=`<div class="tablewrap" style="margin-top:0"><table><thead><tr><th>Categoria</th><th>Artigo</th><th class="r">Qtd</th><th>Un</th>${modoAprov?'<th class="r">Aprovar qtd</th>':'<th class="r">Aprovada</th>'}${(modoCompra)?'<th class="r">Preço/un</th>':''}</tr></thead><tbody>${q.itens.map(i=>`<tr><td>${esc(i.categoria)}</td><td>${esc(i.nome)}${i.obs?`<br><span style="font-size:11px;color:var(--muted)">${esc(i.obs)}</span>`:''}</td><td class="r">${fL(i.qtd)}</td><td>${esc(i.unidade)}</td>${modoAprov?`<td class="r"><input id="ap_${i.id}" type="number" min="0" step="0.01" value="${i.qtd}" style="width:80px;text-align:right;padding:5px;border:1px solid var(--line);border-radius:6px"></td>`:`<td class="r">${fL(i.qtdAprovada)}</td>`}${modoCompra?`<td class="r"><input id="pr_${i.id}" type="number" min="0" step="0.01" value="${i.precoUnitario||''}" placeholder="MT" style="width:90px;text-align:right;padding:5px;border:1px solid var(--line);border-radius:6px"></td>`:''}</tr>`).join('')}</tbody></table></div>`;
+  let fornSel='';
+  if(modoCompra){fornSel=`<div class="field" style="margin-top:12px"><label>Fornecedor</label><select id="buyForn"><option value="">— Selecionar / opcional —</option>${DB.fornecedores.map(f=>`<option>${esc(f.nome)}</option>`).join('')}</select></div>`;}
+  let acts=[];
+  if(q.estado==='Rascunho'&&q.solicitanteId===CURRENT.id)acts.push(`<button class="btn" data-eact="submit">Submeter</button>`);
+  if(modoAprov){acts.push(`<button class="btn good" data-eact="approve">Aprovar</button>`,`<button class="btn danger" data-eact="reject">Rejeitar</button>`,`<button class="btn line" data-eact="changes">Solicitar alterações</button>`);}
+  if(q.estado==='Aprovada'&&canComprar())acts.push(`<button class="btn" data-eact="tocompra">Marcar em compra</button>`);
+  if(modoCompra)acts.push(`<button class="btn good" data-eact="buy">Confirmar compra → Inventário</button>`);
+  if(q.estado==='Comprada'&&canArmazem())acts.push(`<button class="btn" data-eact="receber">Rececionar no armazém</button>`);
+  if(q.estado==='Recebida'&&canArmazem())acts.push(`<button class="btn good" data-eact="entregar">Entregar ao requisitante · concluir</button>`);
+  if(['Rascunho','Submetida','Em aprovação','Aprovada','Em compra'].includes(q.estado)&&(q.solicitanteId===CURRENT.id||isDirecao(CURRENT)))acts.push(`<button class="btn danger" data-eact="cancel">Cancelar</button>`);
+  const hist=(q.historico||[]).slice().reverse().map(h=>`<div class="cl ok"><span class="dot"></span><b>${esc(h.acao)}</b> — ${esc(h.userNome)}${h.papel?' ('+esc(h.papel)+')':''} · ${dtPT(h.data)}${h.nota?' — '+esc(h.nota):''}</div>`).join('');
+  $('#rdBody').innerHTML=`${q.justificacao?`<p style="font-size:13px;margin:0 0 12px"><b>Justificação:</b> ${esc(q.justificacao)}</p>`:''}${itensHtml}${fornSel}
+    <div class="chain" style="border-radius:9px;margin-top:12px">${hist||'<span style="font-size:12px;color:var(--muted)">Sem histórico.</span>'}</div>
+    <div class="formfoot">${acts.join('')}<button class="btn line" data-eact="close">Fechar</button></div>`;
+  $('#reqDetailOverlay').style.display='flex';
+}
+async function reqAction(act){const q=DB.ereqs.find(x=>x.id===reqOpenId);if(!q)return;
+  if(act==='close'){$('#reqDetailOverlay').style.display='none';return;}
+  if(act==='submit'){q.estado='Submetida';addHist(q,'Submetida');await pushNotif('Nova requisição',`${q.numero} submetida por ${CURRENT.nome}`,{paraPapeis:['Aprovador'],refId:q.id});await logAudit('requisitado','Requisição de artigos',q.numero);}
+  if(act==='approve'){q.itens.forEach(i=>{const el=$('#ap_'+i.id);const v=el?toNum(el.value):i.qtd;i.qtdAprovada=v;i.aprovado=v>0;});const parcial=q.itens.some(i=>i.qtdAprovada<i.qtd);q.estado='Aprovada';addHist(q,parcial?'Aprovada (parcial)':'Aprovada');await pushNotif('Requisição aprovada',`${q.numero} aprovada por ${CURRENT.nome}`,{paraUserId:q.solicitanteId,refId:q.id});await pushNotif('Requisição para compra',`${q.numero} pronta para aquisição`,{paraPapeis:['Compras'],refId:q.id});await logAudit('aprovado','Requisição de artigos',q.numero);}
+  if(act==='reject'){const nota=prompt('Motivo da rejeição:')||'';q.estado='Rejeitada';addHist(q,'Rejeitada',nota);await pushNotif('Requisição rejeitada',`${q.numero} rejeitada${nota?': '+nota:''}`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('rejeitado','Requisição de artigos',q.numero+(nota?' — '+nota:''));}
+  if(act==='changes'){const nota=prompt('Que alterações são necessárias?')||'';q.estado='Rascunho';addHist(q,'Alterações solicitadas',nota);await pushNotif('Alterações solicitadas',`${q.numero}: ${nota}`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('editado','Requisição de artigos',q.numero+' — alterações solicitadas');}
+  if(act==='tocompra'){q.estado='Em compra';addHist(q,'Em compra');await logAudit('editado','Requisição de artigos',q.numero+' — em compra');}
+  if(act==='buy'){const forn=$('#buyForn')?$('#buyForn').value:'';let tot=0;
+    for(const i of q.itens){if(i.qtdAprovada<=0)continue;const el=$('#pr_'+i.id);i.precoUnitario=el?toNum(el.value):(i.precoUnitario||0);i.fornecedor=forn;
+      const a=findOrCreateArticle(i.nome,i.categoria,i.unidade);if(forn&&!a.fornecedor)a.fornecedor=forn;a.dataAquisicao=todayISO();i.artigoId=a.id;
+      await doMovement(a.id,'Compra',i.qtdAprovada,{obra:q.obra,precoUnit:i.precoUnitario,notas:'Compra ref. '+q.numero,dest:forn});tot+=i.qtdAprovada*(i.precoUnitario||0);}
+    q.estado='Comprada';q.valorCompra=tot;addHist(q,'Comprada',forn?('Fornecedor: '+forn):'');await pushNotif('Material adquirido',`${q.numero} comprado (${fMT(tot)} MT). Aguardando receção.`,{paraPapeis:['Armazém'],refId:q.id});await logAudit('adicionado','Compra / Inventário',`${q.numero} · ${fMT(tot)} MT em stock`);}
+  if(act==='receber'){q.estado='Recebida';addHist(q,'Rececionada no armazém');await pushNotif('Material recebido',`${q.numero} recebido no armazém`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('editado','Requisição de artigos',q.numero+' — recebida');}
+  if(act==='entregar'){let n=0;for(const i of q.itens){if(i.artigoId&&i.qtdAprovada>0){await doMovement(i.artigoId,'Consumo em obra',i.qtdAprovada,{obra:q.obra,notas:'Entrega ref. '+q.numero,dest:q.solicitanteNome});i.qtdEntregue=i.qtdAprovada;n++;}}q.estado='Concluída';addHist(q,'Entregue ao requisitante');await pushNotif('Material entregue',`${q.numero} entregue a ${q.solicitanteNome}`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('editado','Requisição de artigos',q.numero+' — concluída ('+n+' itens entregues)');}
+  if(act==='cancel'){if(!confirm('Cancelar a requisição '+q.numero+'?'))return;q.estado='Cancelada';addHist(q,'Cancelada');await logAudit('removido','Requisição de artigos',q.numero+' — cancelada (soft delete)');}
+  await commit('ereqs',KEYS.ereq);
+  if(act!=='close'&&$('#reqDetailOverlay').style.display!=='none')openReqDetail(reqOpenId);
+  renderERP();
+}
+
+/* ---------- inventário ---------- */
+function renderInv(){const el=$('#tblInv');if(!el)return;
+  const term=($('#inv-q').value||'').toLowerCase(),cat=$('#inv-cat').value,obra=$('#inv-obra').value,flt=$('#inv-flt').value;
+  let list=[...DB.artigos].sort((a,b)=>a.nome.localeCompare(b.nome));
+  if(cat)list=list.filter(a=>a.categoria===cat);
+  if(obra)list=list.filter(a=>a.projeto===obra);
+  if(flt==='crit')list=list.filter(a=>a.stockMin>0&&a.qtdDisponivel<=a.stockMin);
+  if(flt==='disp')list=list.filter(a=>a.qtdDisponivel>0);
+  if(term)list=list.filter(a=>((a.codigoInterno||'')+' '+a.nome).toLowerCase().includes(term));
+  if(!list.length){el.innerHTML=`<div class="panel"><div class="empty"><p>Sem artigos em inventário.</p><p style="font-size:12.5px">Os artigos entram automaticamente quando uma requisição é comprada.</p></div></div>`;return;}
+  const rows=list.map(a=>{const crit=a.stockMin>0&&a.qtdDisponivel<=a.stockMin;return `<tr><td><span class="tagplate">${esc(a.codigoInterno)}</span></td><td>${esc(a.nome)}${crit?' <span class="st rej" style="background:var(--brand-soft);color:var(--brand-deep)">crítico</span>':''}</td><td>${esc(a.categoria)}</td><td class="r">${fL(a.qtdDisponivel)}</td><td class="r">${fL(a.qtdUtilizada)}</td><td class="r">${fL(a.qtdAdquirida)}</td><td>${esc(a.unidade)}</td><td class="r">${fMT(a.precoUnitario)}</td><td class="r"><b>${fMT((a.qtdDisponivel||0)*(a.precoUnitario||0))}</b></td><td>${esc(a.projeto||'—')}</td><td><div class="rowact"><button class="iconbtn" data-earedit="${a.id}">Editar</button></div></td></tr>`;}).join('');
+  const totVal=list.reduce((s,a)=>s+(a.qtdDisponivel||0)*(a.precoUnitario||0),0);
+  el.innerHTML=`<div class="tablewrap"><table><thead><tr><th>Código</th><th>Artigo</th><th>Categoria</th><th class="r">Disponível</th><th class="r">Utilizado</th><th class="r">Adquirido</th><th>Un</th><th class="r">Preço/un</th><th class="r">Valor stock</th><th>Obra</th><th></th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="8">Valor total do inventário · ${list.length} artigo(s)</td><td class="r">${fMT(totVal)} MT</td><td colspan="2"></td></tr></tfoot></table></div>`;
+}
+
+/* ---------- movimentos ---------- */
+$('#saveMov')&&($('#saveMov').onclick=async()=>{const artId=$('#m-artigo').value,tipo=$('#m-tipo').value,qtd=toNum($('#m-qtd').value);
+  if(!artId){toast('Selecione o artigo.',true);return;}if(!tipo){toast('Selecione o tipo.',true);return;}if(qtd<=0){toast('Indique a quantidade.',true);return;}
+  const m=await doMovement(artId,tipo,qtd,{obra:$('#m-obra').value,dest:$('#m-dest').value.trim(),notas:$('#m-notas').value.trim(),data:$('#m-data').value});
+  if(m){await logAudit('editado','Movimento de stock',`${m.tipo} · ${m.artigoNome} · ${m.sinal>0?'+':'-'}${fL(m.qtd)}`);['m-qtd','m-dest','m-notas'].forEach(i=>$('#'+i).value='');renderERP();toast('Movimento registado.');}
+});
+function renderMov(){const el=$('#tblMov');if(!el)return;const term=($('#mv-q').value||'').toLowerCase(),tf=$('#mv-tipo').value;
+  let list=[...DB.movimentos];if(tf)list=list.filter(m=>m.tipo===tf);if(term)list=list.filter(m=>((m.artigoNome||'')+' '+(m.tipo||'')+' '+(m.obra||'')).toLowerCase().includes(term));
+  if(!list.length){el.innerHTML=`<div class="panel"><div class="empty"><p>Sem movimentos registados.</p></div></div>`;return;}
+  el.innerHTML=`<div class="tablewrap"><table><thead><tr><th>Data</th><th>Artigo</th><th>Tipo</th><th class="r">Qtd</th><th>Obra</th><th>Dest./Ref.</th><th>Por</th></tr></thead><tbody>${list.slice(0,300).map(m=>`<tr><td class="num">${dPT(m.data)}</td><td>${esc(m.artigoNome)}</td><td><span class="st ${m.sinal>0?'apr':'rej'}" style="${m.sinal>0?'':'background:var(--amber-soft);color:var(--amber)'}">${esc(m.tipo)}</span></td><td class="r"><b>${m.sinal>0?'+':'−'}${fL(m.qtd)}</b></td><td>${esc(m.obra||'—')}</td><td>${esc(m.dest||m.notas||'—')}</td><td style="font-size:11.5px;color:var(--muted)">${esc(m.userNome||'—')}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+/* ---------- emitir / entregar ---------- */
+$('#btnEmitir')&&($('#btnEmitir').onclick=()=>{buildERPSelectors();$('#em-qtd').value='';$('#em-receb').value='';$('#em-notas').value='';$('#emitirOverlay').style.display='flex';});
+$('#em-cancel')&&($('#em-cancel').onclick=()=>{$('#emitirOverlay').style.display='none';});
+$('#em-confirm')&&($('#em-confirm').onclick=async()=>{const artId=$('#em-artigo').value,qtd=toNum($('#em-qtd').value);if(!artId){toast('Selecione o artigo.',true);return;}if(qtd<=0){toast('Indique a quantidade.',true);return;}
+  const a=artObj(artId);if(qtd>a.qtdDisponivel&&!confirm('Quantidade superior ao disponível ('+fL(a.qtdDisponivel)+'). Continuar?'))return;
+  const m=await doMovement(artId,'Consumo em obra',qtd,{obra:$('#em-obra').value,dest:$('#em-receb').value.trim(),notas:$('#em-notas').value.trim()});
+  if(m){await logAudit('editado','Entrega / Consumo',`${a.nome} · ${fL(qtd)} ${a.unidade} → ${$('#em-obra').value||'obra'}`);await pushNotif('Material entregue',`${a.nome}: ${fL(qtd)} ${a.unidade} entregue`,{paraPapeis:['Armazém']});$('#emitirOverlay').style.display='none';renderERP();toast('Entrega registada.');}
+});
+
+/* ---------- artigo (novo/editar) ---------- */
+$('#btnNovoArtigo')&&($('#btnNovoArtigo').onclick=()=>openArtigo(null));
+function openArtigo(id){editArtId=id;buildERPSelectors();const a=id?artObj(id):null;$('#artTitle').textContent=a?'Editar artigo':'Novo artigo';
+  $('#ar-nome').value=a?a.nome:'';$('#ar-cat').value=a?a.categoria:'';$('#ar-un').value=a?a.unidade:'';$('#ar-cod').value=a?a.codigoInterno:'';$('#ar-min').value=a?a.stockMin:'';$('#ar-max').value=a?a.stockMax:'';$('#ar-loc').value=a?a.localizacao:'';$('#ar-obra').value=a?a.projeto:'';$('#ar-qtd').value=a?a.qtdDisponivel:'';$('#ar-preco').value=a?a.precoUnitario:'';$('#ar-desc').value=a?a.descricao:'';
+  $('#ar-qtd').disabled=!!a;$('#artigoOverlay').style.display='flex';}
+$('#ar-cancel')&&($('#ar-cancel').onclick=()=>{$('#artigoOverlay').style.display='none';});
+$('#ar-save')&&($('#ar-save').onclick=async()=>{const nome=$('#ar-nome').value.trim();if(!nome){toast('Indique o nome.',true);return;}
+  if(editArtId){const a=artObj(editArtId);a.nome=nome;a.categoria=$('#ar-cat').value||'Outros';a.unidade=$('#ar-un').value.trim()||'un';a.stockMin=toNum($('#ar-min').value);a.stockMax=toNum($('#ar-max').value);a.localizacao=$('#ar-loc').value.trim();a.projeto=$('#ar-obra').value;a.precoUnitario=toNum($('#ar-preco').value);a.descricao=$('#ar-desc').value.trim();a.valorTotal=(a.qtdAdquirida||0)*(a.precoUnitario||0);await commit('artigos',KEYS.eart);await logAudit('editado','Artigo',a.nome);}
+  else{const qtd=toNum($('#ar-qtd').value);const a={id:uid(),codigoInterno:$('#ar-cod').value.trim()||nextArtCode(),codigoFornecedor:'',categoria:$('#ar-cat').value||'Outros',nome,descricao:$('#ar-desc').value.trim(),unidade:$('#ar-un').value.trim()||'un',qtdAdquirida:qtd,qtdUtilizada:0,qtdReservada:0,qtdDisponivel:qtd,stockMin:toNum($('#ar-min').value),stockMax:toNum($('#ar-max').value),localizacao:$('#ar-loc').value.trim(),fornecedor:'',precoUnitario:toNum($('#ar-preco').value),valorTotal:qtd*toNum($('#ar-preco').value),projeto:$('#ar-obra').value,dataAquisicao:qtd>0?todayISO():'',criadoEm:new Date().toISOString()};DB.artigos.push(a);await commit('artigos',KEYS.eart);if(qtd>0){await doMovement(a.id,'Ajuste (+)',qtd,{obra:a.projeto,notas:'Stock inicial',precoUnit:a.precoUnitario});}await logAudit('adicionado','Artigo',a.nome+(qtd>0?` · stock inicial ${fL(qtd)}`:''));}
+  $('#artigoOverlay').style.display='none';renderERP();toast('Artigo guardado.');});
+
+/* ---------- fornecedores ---------- */
+$('#saveForn')&&($('#saveForn').onclick=async()=>{const nome=$('#f-nome').value.trim();if(!nome){toast('Indique o nome.',true);return;}
+  const rec={nome,nuit:$('#f-nuit').value.trim(),contacto:$('#f-contacto').value.trim(),localidade:$('#f-local').value.trim()};
+  if(editFornId){Object.assign(DB.fornecedores.find(x=>x.id===editFornId),rec);editFornId=null;$('#cancelForn').style.display='none';$('#saveForn').textContent='Guardar fornecedor';}
+  else DB.fornecedores.push({id:uid(),...rec,criadoEm:new Date().toISOString()});
+  await commit('fornecedores',KEYS.eforn);await logAudit(editFornId?'editado':'adicionado','Fornecedor',nome);
+  ['f-nome','f-nuit','f-contacto','f-local'].forEach(i=>$('#'+i).value='');renderForn();toast('Fornecedor guardado.');});
+$('#cancelForn')&&($('#cancelForn').onclick=()=>{editFornId=null;['f-nome','f-nuit','f-contacto','f-local'].forEach(i=>$('#'+i).value='');$('#cancelForn').style.display='none';$('#saveForn').textContent='Guardar fornecedor';});
+function renderForn(){const el=$('#tblForn');if(!el)return;if(!DB.fornecedores.length){el.innerHTML=`<div class="panel"><div class="empty"><p>Sem fornecedores registados.</p></div></div>`;return;}
+  el.innerHTML=`<div class="tablewrap"><table><thead><tr><th>Nome</th><th>NUIT</th><th>Contacto</th><th>Localidade</th><th></th></tr></thead><tbody>${DB.fornecedores.map(f=>`<tr><td>${esc(f.nome)}</td><td>${esc(f.nuit||'—')}</td><td>${esc(f.contacto||'—')}</td><td>${esc(f.localidade||'—')}</td><td><div class="rowact"><button class="iconbtn" data-efedit="${f.id}">Editar</button></div></td></tr>`).join('')}</tbody></table></div>`;}
+
+/* ---------- painel ERP ---------- */
+function renderErpDashboard(){
+  if(!$('#erpKpis'))return;
+  const now=new Date(),mesAtual=now.toISOString().slice(0,7);
+  const pend=DB.ereqs.filter(q=>q.estado==='Submetida'||q.estado==='Em aprovação').length;
+  const aprov=DB.ereqs.filter(q=>q.estado==='Aprovada'||q.estado==='Em compra'||q.estado==='Comprada'||q.estado==='Recebida'||q.estado==='Concluída').length;
+  const rej=DB.ereqs.filter(q=>q.estado==='Rejeitada').length;
+  const comprasMes=DB.movimentos.filter(m=>m.tipo==='Compra'&&(m.data||'').slice(0,7)===mesAtual).reduce((s,m)=>s+(m.custo||0),0);
+  const consumoMes=DB.movimentos.filter(m=>m.tipo==='Consumo em obra'&&(m.data||'').slice(0,7)===mesAtual).reduce((s,m)=>s+(m.custo||0),0);
+  const valInv=DB.artigos.reduce((s,a)=>s+(a.qtdDisponivel||0)*(a.precoUnitario||0),0);
+  const critico=DB.artigos.filter(a=>a.stockMin>0&&a.qtdDisponivel<=a.stockMin);
+  $('#erpKpis').innerHTML=[
+    kpi('Requisições pendentes',fKm(pend),'',pend?'a aguardar aprovação':'—',true),
+    kpi('Aprovadas / em curso',fKm(aprov),'',''),
+    kpi('Rejeitadas',fKm(rej),'',''),
+    kpi('Compras do mês',fMT(comprasMes),'MT',''),
+    kpi('Consumo do mês',fMT(consumoMes),'MT',''),
+    kpi('Valor em stock',fMT(valInv),'MT',`${DB.artigos.length} artigo(s)`),
+  ].join('');
+  const compras=DB.movimentos.filter(m=>m.tipo==='Compra');
+  groupBars('#erpCatBars',compras,'categoria','(sem categoria)',false);
+  const byM={};compras.forEach(m=>{const k=(m.data||'').slice(0,7);if(k)byM[k]=(byM[k]||0)+(m.custo||0);});
+  const mA=Object.entries(byM).sort((a,b)=>a[0]<b[0]?-1:1),maxM=Math.max(1,...mA.map(x=>x[1]));const mes=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  $('#erpMonthBars').innerHTML=mA.length?mA.map(([m,v])=>{const[y,mm]=m.split('-');return `<div class="barrow"><span class="bl">${mes[+mm-1]} ${y.slice(2)}</span><div class="bartrack"><div class="barfill" style="width:${(v/maxM*100).toFixed(1)}%"></div></div><span class="bv">${fMT(v)} MT</span></div>`;}).join(''):`<p style="color:var(--muted);font-size:13px">Sem compras registadas.</p>`;
+  const consumo=DB.movimentos.filter(m=>m.tipo==='Consumo em obra');
+  groupBars('#erpProjBars',consumo,'obra','(sem obra)',true);
+  $('#critCount').textContent=critico.length+' artigo(s)';
+  $('#erpCritico').innerHTML=critico.length?critico.slice(0,12).map(a=>`<div class="barrow"><span class="bl" title="${esc(a.nome)}">${esc(a.nome)}</span><div class="bartrack"><div class="barfill" style="width:${Math.min(100,(a.qtdDisponivel/Math.max(1,a.stockMin))*100).toFixed(0)}%;background:var(--brand)"></div></div><span class="bv">${fL(a.qtdDisponivel)}/${fL(a.stockMin)} ${esc(a.unidade)}</span></div>`).join(''):`<p style="color:var(--good);font-size:13px">✔ Nenhum artigo abaixo do stock mínimo.</p>`;
+}
+
+/* ---------- utilizadores & papéis ---------- */
+$('#btnUsers')&&($('#btnUsers').onclick=()=>{if(!isDirecao(CURRENT)){toast('Apenas a Direção.',true);return;}renderUsersModal();$('#usersOverlay').style.display='flex';});
+$('#usersClose')&&($('#usersClose').onclick=()=>{$('#usersOverlay').style.display='none';});
+function renderUsersModal(){const papeis=['Requisitante','Aprovador','Compras','Armazém','Direção'];
+  $('#usersBody').innerHTML=DB.users.map(u=>`<div style="border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px"><div style="display:flex;justify-content:space-between"><b>${esc(u.nome)}</b><span class="rolebadge lvl${u.nivel}">${esc(nivelLabel(u.nivel))}</span></div><div style="display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px">${papeis.map(p=>`<label style="display:flex;gap:5px;align-items:center;font-size:12.5px"><input type="checkbox" data-erole="${u.id}|${p}" ${(u.papeis||[]).includes(p)?'checked':''} style="width:auto">${p}</label>`).join('')}</div></div>`).join('');}
+
+/* ---------- click delegation (ERP) ---------- */
+document.body.addEventListener('click',async e=>{const t=e.target.closest('button, input[type=checkbox]');if(!t)return;
+  if(t.dataset.eopen){openReqDetail(t.dataset.eopen);}
+  if(t.dataset.epage!=null&&t.dataset.epage!==''){erpReqPage=+t.dataset.epage;renderErpReqList();}
+  if(t.dataset.eact){reqAction(t.dataset.eact);}
+  if(t.dataset.edelitem){pendingItens=pendingItens.filter(x=>x.id!==t.dataset.edelitem);renderPendingItens();}
+  if(t.dataset.earedit){openArtigo(t.dataset.earedit);}
+  if(t.dataset.efedit){const f=DB.fornecedores.find(x=>x.id===t.dataset.efedit);if(f){editFornId=f.id;$('#f-nome').value=f.nome;$('#f-nuit').value=f.nuit||'';$('#f-contacto').value=f.contacto||'';$('#f-local').value=f.localidade||'';$('#cancelForn').style.display='';$('#saveForn').textContent='Atualizar fornecedor';switchView('forn');window.scrollTo({top:0,behavior:'smooth'});}}
+  if(t.dataset.enotifRead){const n=DB.notificacoes.find(x=>x.id===t.dataset.enotifRead);if(n){n.lidaPor=n.lidaPor||[];if(!n.lidaPor.includes(CURRENT.id))n.lidaPor.push(CURRENT.id);await commit('notificacoes',KEYS.enot);openNotif();renderNotifBadge();}}
+  if(t.dataset.erole){const[uid_,papel]=t.dataset.erole.split('|');const u=DB.users.find(x=>x.id===uid_);if(u){u.papeis=u.papeis||[];if(t.checked){if(!u.papeis.includes(papel))u.papeis.push(papel);}else{u.papeis=u.papeis.filter(p=>p!==papel);}await commit('users',KEYS.u);renderNotifBadge();}}
+});
+$('#btnBell')&&($('#btnBell').onclick=openNotif);
+$('#notifClose')&&($('#notifClose').onclick=()=>{$('#notifOverlay').style.display='none';});
+$('#notifReadAll')&&($('#notifReadAll').onclick=async()=>{DB.notificacoes.forEach(n=>{if(notifVisivel(n)){n.lidaPor=n.lidaPor||[];if(!n.lidaPor.includes(CURRENT.id))n.lidaPor.push(CURRENT.id);}});await commit('notificacoes',KEYS.enot);openNotif();renderNotifBadge();});
+['#er-q','#er-estado','#er-prio','#er-obra','#er-scope'].forEach(s=>$(s)&&$(s).addEventListener('input',()=>{erpReqPage=0;renderErpReqList();}));
+['#inv-q','#inv-cat','#inv-obra','#inv-flt'].forEach(s=>$(s)&&$(s).addEventListener('input',renderInv));
+['#mv-q','#mv-tipo'].forEach(s=>$(s)&&$(s).addEventListener('input',renderMov));
+
+/* ---------- orquestração ---------- */
+function renderErpBadges(){const b=$('#erpReqBadge');if(!b)return;const n=DB.ereqs.filter(reqPodeAgir).length;if(n>0){b.style.display='';b.textContent=n;}else b.style.display='none';}
+function renderERP(){if(!CURRENT)return;buildERPSelectors();renderErpDashboard();renderErpReqList();renderInv();renderMov();renderForn();renderErpBadges();renderNotifBadge();}
+function onSwitchERP(name){if(['painelerp','erpreq','inv','mov','forn'].includes(name))renderERP();}
+
+/* ---------- arranque ---------- */
+if($('#e-data'))$('#e-data').value=todayISO();
+if($('#m-data'))$('#m-data').value=todayISO();
 init();
+
 </script>
 <script>
 var deferredPrompt=null;
