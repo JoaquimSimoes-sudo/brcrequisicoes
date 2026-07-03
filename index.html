@@ -351,6 +351,34 @@
   </div>
 </div>
 
+<!-- ANEXOS (PDF / FOTO) -->
+<div class="overlay" id="anexosOverlay" style="display:none">
+  <div class="modal" style="max-width:520px">
+    <div class="mh"><h2>Anexos</h2><p id="axSub"></p></div>
+    <div class="mb">
+      <div id="axList" style="max-height:45vh;overflow:auto;margin-bottom:14px"></div>
+      <div style="border-top:1px dashed var(--line);padding-top:12px">
+        <div class="field"><label>Tipo de documento</label><select id="ax-cat"><option>Cotação</option><option>Comprovativo de pagamento</option><option>Fatura / Recibo</option><option>Nota</option><option>Outro</option></select></div>
+        <div class="field"><label>Ficheiro (PDF ou foto — máx. ~750 KB)</label><input id="ax-file" type="file" accept="application/pdf,image/*" capture="environment"></div>
+        <div style="display:flex;gap:10px;margin-top:6px"><button class="btn" id="ax-add" style="flex:1">Anexar</button><button class="btn line" id="ax-close">Fechar</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRMAR RECEBIMENTO DO VALOR -->
+<div class="overlay" id="valorOverlay" style="display:none">
+  <div class="modal" style="max-width:420px">
+    <div class="mh"><h2>Confirmar recebimento do valor</h2><p id="vv-req"></p></div>
+    <div class="mb">
+      <div class="field"><label>Valor recebido (MT) <span class="req">*</span></label><input id="vv-valor" type="number" min="0" step="0.01"></div>
+      <div class="field"><label>Método</label><select id="vv-metodo"></select></div>
+      <div class="field"><label>Nota / Referência</label><input id="vv-nota" placeholder="Nº de talão, referência…"></div>
+      <div style="display:flex;gap:10px"><button class="btn good" id="vv-confirm" style="flex:1">Confirmar recebimento</button><button class="btn line" id="vv-cancel">Cancelar</button></div>
+    </div>
+  </div>
+</div>
+
 <header class="app">
   <div class="bar">
     <div class="brand">
@@ -517,6 +545,7 @@
         <div class="field"><label>Local</label><input id="e-local" placeholder="Ex.: Armazém central / Estaleiro"></div>
         <div class="field"><label>Departamento</label><input id="e-depto" placeholder="Ex.: Produção / Manutenção"></div>
         <div class="field"><label>Prioridade <span class="req">*</span></label><select id="e-prio"><option>Baixa</option><option selected>Média</option><option>Alta</option><option>Urgente</option></select></div>
+        <div class="field"><label>Método de pagamento</label><select id="e-pagamento"><option value="">— A definir —</option><option>Numerário</option><option>Transferência bancária</option><option>M-Pesa</option><option>e-Mola</option><option>Cheque</option><option>Crédito do fornecedor</option></select></div>
         <div class="field wide"><label>Justificação</label><input id="e-just" placeholder="Motivo da requisição"></div>
       </div>
       <div style="margin-top:16px;border-top:1px dashed var(--line);padding-top:14px">
@@ -526,6 +555,7 @@
           <div class="field"><label>Artigo <span class="req">*</span></label><input id="i-nome" list="artList" placeholder="Nome do artigo"><datalist id="artList"></datalist></div>
           <div class="field"><label>Unidade</label><input id="i-un" placeholder="un / kg / m / saco…"></div>
           <div class="field"><label>Quantidade <span class="req">*</span></label><input id="i-qtd" type="number" min="0" step="0.01"></div>
+          <div class="field"><label>Preço unit. (MT)</label><input id="i-preco" type="number" min="0" step="0.01" placeholder="estimado"></div>
           <div class="field"><label>Obs.</label><input id="i-obs" placeholder="Especificação"></div>
           <div class="field"><label>&nbsp;</label><button class="btn line" id="addItem">+ Adicionar artigo</button></div>
         </div>
@@ -566,6 +596,7 @@
         <div class="field"><label>Artigo <span class="req">*</span></label><select id="m-artigo"></select></div>
         <div class="field"><label>Tipo <span class="req">*</span></label><select id="m-tipo"></select></div>
         <div class="field"><label>Quantidade <span class="req">*</span></label><input id="m-qtd" type="number" min="0" step="0.01"></div>
+        <div class="field"><label>Preço unit. (MT)</label><input id="m-preco" type="number" min="0" step="0.01" placeholder="p/ valorizar stock"></div>
         <div class="field"><label>Projeto / Obra</label><select id="m-obra"></select></div>
         <div class="field"><label>Recebido / Destinatário</label><input id="m-dest" placeholder="Nome"></div>
         <div class="field wide"><label>Notas</label><input id="m-notas"></div>
@@ -842,7 +873,7 @@ function renderViaturas(){const el=$('#tblViaturas');if(!DB.viaturas.length){el.
 
 function renderAbast(){const el=$('#tblAbast');const list=[...DB.abastecimentos].sort((a,b)=>a.data<b.data?1:-1);if(!list.length){el.innerHTML=tEmpty('Sem abastecimentos registados.',iconFuel());return;}
   let tl=0,tc=0;const rows=list.map(a=>{tl+=a.litros||0;tc+=a.custo||0;const own=CURRENT&&(a.criadoPorId===CURRENT.id||CURRENT.nivel>=3);
-    return `<tr><td class="num">${dPT(a.data)}</td><td><span class="tagplate">${esc(vName(a.viaturaId))}</span></td><td class="r">${fL(a.litros)}</td><td class="r">${fMT(a.preco)}</td><td class="r"><b>${fMT(a.custo)}</b></td><td>${a.finalidade?`<span class="tagfin">${esc(a.finalidade)}</span>`:'—'}</td><td>${a.obra?`<span class="tagobra">${esc(a.obra)}</span>`:'—'}</td><td style="font-size:11.5px;color:var(--muted)">${esc(a.criadoPorNome||'—')}</td><td><div class="rowact">${own?`<button class="iconbtn" data-edit-a="${a.id}">Editar</button><button class="iconbtn del" data-del-a="${a.id}">Eliminar</button>`:'<span style="font-size:11px;color:var(--muted)">—</span>'}</div></td></tr>`;}).join('');
+    return `<tr><td class="num">${dPT(a.data)}</td><td><span class="tagplate">${esc(vName(a.viaturaId))}</span></td><td class="r">${fL(a.litros)}</td><td class="r">${fMT(a.preco)}</td><td class="r"><b>${fMT(a.custo)}</b></td><td>${a.finalidade?`<span class="tagfin">${esc(a.finalidade)}</span>`:'—'}</td><td>${a.obra?`<span class="tagobra">${esc(a.obra)}</span>`:'—'}</td><td style="font-size:11.5px;color:var(--muted)">${esc(a.criadoPorNome||'—')}</td><td><div class="rowact"><button class="iconbtn" data-abanexos="${a.id}" title="Comprovativos">📎${(a.anexos&&a.anexos.length)||''}</button>${own?`<button class="iconbtn" data-edit-a="${a.id}">Editar</button><button class="iconbtn del" data-del-a="${a.id}">Eliminar</button>`:''}</div></td></tr>`;}).join('');
   el.innerHTML=`<div class="tablewrap"><table><thead><tr><th>Data</th><th>Viatura</th><th class="r">Litros</th><th class="r">Preço/L</th><th class="r">Custo</th><th>Finalidade</th><th>Destino</th><th>Registado por</th><th></th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="2">Total · ${list.length}</td><td class="r">${fL(tl)}</td><td></td><td class="r">${fMT(tc)} MT</td><td colspan="4"></td></tr></tfoot></table></div>`;}
 
 function renderRotas(){const el=$('#tblRotas');const list=[...DB.rotas].sort((a,b)=>a.data<b.data?1:-1);if(!list.length){el.innerHTML=tEmpty('Sem viagens registadas.',iconRoute());return;}
@@ -1034,6 +1065,12 @@ const ERP_ESTADOS=['Rascunho','Submetida','Em aprovação','Aprovada','Rejeitada
 const MOV_ENTRADAS=['Compra','Devolução','Transferência (entrada)','Ajuste (+)'];
 const MOV_SAIDAS=['Consumo em obra','Empréstimo','Transferência (saída)','Perda','Dano','Ajuste (-)'];
 const ERP_PRIOS=['Baixa','Média','Alta','Urgente'];
+const ANEXO_CATS=['Cotação','Comprovativo de pagamento','Fatura / Recibo','Nota','Outro'];
+const MAX_ANEXO=750*1024;
+let anexoTarget={kind:null,id:null};
+function itemTotal(i){return toNum(i.qtd)*toNum(i.precoUnitario);}
+function itemTotalAprov(i){return toNum(i.qtdAprovada!=null?i.qtdAprovada:i.qtd)*toNum(i.precoUnitario);}
+function reqTotal(q){return (q.itens||[]).reduce((s,i)=>s+(['Aprovada','Em compra','Comprada','Recebida','Parcialmente entregue','Concluída'].includes(q.estado)?itemTotalAprov(i):itemTotal(i)),0);}
 
 let pendingItens=[];
 let erpReqPage=0; const ERP_PAGE=8;
@@ -1054,6 +1091,36 @@ function estadoCls(e){return ({'Rascunho':'rej','Submetida':'pend','Em aprovaç�
 function addHist(q,acao,nota){q.historico=q.historico||[];q.historico.push({data:new Date().toISOString(),userNome:CURRENT?CURRENT.nome:'—',papel:((CURRENT&&CURRENT.papeis)||[]).join('/'),acao,nota:nota||''});}
 function catList(){const custom=DB.categorias||[];return ERP_CATS.concat(custom.filter(c=>!ERP_CATS.includes(c)));}
 function catOptions(all){return (all?'<option value="">Todas</option>':'')+catList().map(c=>`<option>${esc(c)}</option>`).join('');}
+
+/* ---------- anexos (PDF / foto) ---------- */
+function readFileDataUrl(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});}
+function compressImage(file){return new Promise((res,rej)=>{const img=new Image();const u=URL.createObjectURL(file);img.onload=()=>{const max=1600;let w=img.width,h=img.height;if(w>max||h>max){const s=Math.min(max/w,max/h);w=Math.round(w*s);h=Math.round(h*s);}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.72));};img.onerror=rej;img.src=u;});}
+async function processFile(file){if(file.type&&file.type.indexOf('image/')===0){return {mime:'image/jpeg',dataUrl:await compressImage(file)};}return {mime:file.type||'application/octet-stream',dataUrl:await readFileDataUrl(file)};}
+function dataUrlBytes(d){const i=d.indexOf(',');return Math.round((d.length-i-1)*0.75);}
+async function saveAnexoBytes(id,dataUrl){if(BACKEND==='cloud'){try{await fdb.collection('frota_anexos').doc(id).set({dataUrl,criadoEm:Date.now()});return true;}catch(e){return false;}}return await saveKey('frota:anexo_'+id,{dataUrl});}
+async function loadAnexoBytes(id){if(BACKEND==='cloud'){try{const d=await fdb.collection('frota_anexos').doc(id).get();return d.exists?d.data().dataUrl:null;}catch(e){return null;}}const v=await loadKey('frota:anexo_'+id,null);return v?v.dataUrl:null;}
+async function viewAnexo(id,nome){toast('A abrir anexo…');const durl=await loadAnexoBytes(id);if(!durl){toast('Anexo indisponível.',true);return;}
+  const isPdf=durl.indexOf('data:application/pdf')===0;const w=window.open('','_blank');
+  if(w){try{w.document.title=nome||'Anexo';if(isPdf)w.document.body.innerHTML='<iframe src="'+durl+'" style="position:fixed;inset:0;width:100%;height:100%;border:0"></iframe>';else w.document.body.innerHTML='<img src="'+durl+'" style="max-width:100%;height:auto;display:block;margin:0 auto">';w.document.body.style.margin='0';}catch(e){}}
+  else{const a=document.createElement('a');a.href=durl;a.download=nome||'anexo';a.click();}}
+function targetRec(){if(anexoTarget.kind==='ereq')return DB.ereqs.find(x=>x.id===anexoTarget.id);if(anexoTarget.kind==='abast')return DB.abastecimentos.find(x=>x.id===anexoTarget.id);return null;}
+async function persistTarget(){if(anexoTarget.kind==='ereq')await commit('ereqs',KEYS.ereq);else if(anexoTarget.kind==='abast')await commit('abastecimentos',KEYS.a);}
+function anexosCount(rec){return rec&&rec.anexos?rec.anexos.length:0;}
+function openAnexos(kind,id){anexoTarget={kind,id};renderAnexosModal();$('#anexosOverlay').style.display='flex';}
+function renderAnexosModal(){const rec=targetRec();if(!rec)return;rec.anexos=rec.anexos||[];
+  const ref=anexoTarget.kind==='ereq'?rec.numero:('Abastecimento '+dPT(rec.data));
+  $('#axSub').textContent=ref+' · '+rec.anexos.length+' anexo(s)';
+  $('#axList').innerHTML=rec.anexos.length?rec.anexos.map(a=>`<div style="display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:9px;padding:9px 11px;margin-bottom:8px">
+      <span class="tagfin">${esc(a.categoria)}</span><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(a.nome)}</div><div style="font-size:11px;color:var(--muted)">${(a.tamanho/1024|0)} KB · ${esc(a.criadoPorNome||'')} · ${dtPT(a.criadoEm)}</div></div>
+      <button class="iconbtn" data-axview="${a.id}" data-axname="${esc(a.nome)}">Ver</button><button class="iconbtn del" data-axdel="${a.id}">✕</button></div>`).join(''):'<p style="color:var(--muted);font-size:13px">Ainda sem anexos.</p>';
+}
+$('#ax-add')&&($('#ax-add').onclick=async()=>{const rec=targetRec();if(!rec)return;const inp=$('#ax-file');const f=inp.files[0];if(!f){toast('Escolha um ficheiro (PDF ou foto).',true);return;}
+  toast('A processar ficheiro…');let proc;try{proc=await processFile(f);}catch(e){toast('Não foi possível ler o ficheiro.',true);return;}
+  const bytes=dataUrlBytes(proc.dataUrl);if(bytes>MAX_ANEXO){toast('Ficheiro grande ('+(bytes/1024|0)+' KB). Máx ~750 KB — fotografe o documento ou reduza o PDF.',true);inp.value='';return;}
+  const id=uid();const meta={id,categoria:$('#ax-cat').value,nome:f.name,mime:proc.mime,tamanho:bytes,criadoPorNome:CURRENT?CURRENT.nome:'—',criadoEm:new Date().toISOString()};
+  const ok=await saveAnexoBytes(id,proc.dataUrl);if(!ok){toast('Falha ao guardar o anexo.',true);return;}
+  rec.anexos=rec.anexos||[];rec.anexos.push(meta);inp.value='';await persistTarget();await logAudit('adicionado','Anexo',`${meta.categoria}: ${meta.nome} (${anexoTarget.kind==='ereq'?rec.numero:'abastecimento'})`);renderAnexosModal();renderAll();toast('Anexo adicionado.');});
+$('#ax-close')&&($('#ax-close').onclick=()=>{$('#anexosOverlay').style.display='none';});
 
 /* ---------- notificações ---------- */
 async function pushNotif(evento,mensagem,opt){opt=opt||{};DB.notificacoes.unshift({id:uid(),data:new Date().toISOString(),evento,mensagem,paraPapeis:opt.paraPapeis||[],paraUserId:opt.paraUserId||null,refId:opt.refId||null,lidaPor:[]});if(DB.notificacoes.length>500)DB.notificacoes.length=500;await commit('notificacoes',KEYS.enot);}
@@ -1116,26 +1183,28 @@ function buildERPSelectors(){
 
 /* ---------- item builder ---------- */
 $('#addItem')&&($('#addItem').onclick=()=>{
-  const cat=$('#i-cat').value,nome=$('#i-nome').value.trim(),un=$('#i-un').value.trim()||'un',qtd=toNum($('#i-qtd').value),obs=$('#i-obs').value.trim();
+  const cat=$('#i-cat').value,nome=$('#i-nome').value.trim(),un=$('#i-un').value.trim()||'un',qtd=toNum($('#i-qtd').value),preco=toNum($('#i-preco').value),obs=$('#i-obs').value.trim();
   if(!cat){toast('Selecione a categoria.',true);return;}if(!nome){toast('Indique o artigo.',true);return;}if(qtd<=0){toast('Indique a quantidade.',true);return;}
-  pendingItens.push({id:uid(),categoria:cat,nome,unidade:un,qtd,obs,qtdAprovada:qtd,aprovado:false,precoUnitario:0,fornecedor:'',artigoId:null,qtdEntregue:0});
-  $('#i-nome').value='';$('#i-un').value='';$('#i-qtd').value='';$('#i-obs').value='';renderPendingItens();
+  pendingItens.push({id:uid(),categoria:cat,nome,unidade:un,qtd,precoUnitario:preco,obs,qtdAprovada:qtd,aprovado:false,fornecedor:'',artigoId:null,qtdEntregue:0});
+  $('#i-nome').value='';$('#i-un').value='';$('#i-qtd').value='';$('#i-preco').value='';$('#i-obs').value='';renderPendingItens();
 });
 function renderPendingItens(){const el=$('#itemList');if(!pendingItens.length){el.innerHTML='';return;}
-  el.innerHTML=`<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Categoria</th><th>Artigo</th><th class="r">Qtd</th><th>Un</th><th></th></tr></thead><tbody>${pendingItens.map(i=>`<tr><td>${esc(i.categoria)}</td><td>${esc(i.nome)}</td><td class="r">${fL(i.qtd)}</td><td>${esc(i.unidade)}</td><td><div class="rowact"><button class="iconbtn del" data-edelitem="${i.id}">✕</button></div></td></tr>`).join('')}</tbody></table></div>`;}
+  const tot=pendingItens.reduce((s,i)=>s+itemTotal(i),0);
+  el.innerHTML=`<div class="tablewrap" style="margin-top:12px"><table><thead><tr><th>Categoria</th><th>Artigo</th><th class="r">Qtd</th><th>Un</th><th class="r">Preço/un</th><th class="r">Total</th><th></th></tr></thead><tbody>${pendingItens.map(i=>`<tr><td>${esc(i.categoria)}</td><td>${esc(i.nome)}</td><td class="r">${fL(i.qtd)}</td><td>${esc(i.unidade)}</td><td class="r">${fMT(i.precoUnitario)}</td><td class="r"><b>${fMT(itemTotal(i))}</b></td><td><div class="rowact"><button class="iconbtn del" data-edelitem="${i.id}">✕</button></div></td></tr>`).join('')}</tbody><tfoot><tr><td colspan="5">Valor total estimado da requisição</td><td class="r">${fMT(tot)} MT</td><td></td></tr></tfoot></table></div>`;}
 
 async function guardarReq(estado){
   const obra=$('#e-obra').value,data=$('#e-data').value;
   if(!data){toast('Indique a data.',true);return;}if(!obra){toast('Selecione o projeto/obra.',true);return;}
   if(!pendingItens.length){toast('Adicione pelo menos um artigo.',true);return;}
   const q={id:uid(),numero:nextErpNum(),data,obra,local:$('#e-local').value.trim(),departamento:$('#e-depto').value.trim(),prioridade:$('#e-prio').value,justificacao:$('#e-just').value.trim(),
-    itens:JSON.parse(JSON.stringify(pendingItens)),estado,solicitanteId:CURRENT.id,solicitanteNome:CURRENT.nome,historico:[],criadoEm:new Date().toISOString()};
+    metodoPagamento:($('#e-pagamento')?$('#e-pagamento').value:''),
+    itens:JSON.parse(JSON.stringify(pendingItens)),estado,solicitanteId:CURRENT.id,solicitanteNome:CURRENT.nome,historico:[],anexos:[],recebimentoValor:null,criadoEm:new Date().toISOString()};
   addHist(q,estado==='Rascunho'?'Rascunho criado':'Requisição submetida');
   DB.ereqs.push(q);await commit('ereqs',KEYS.ereq);
-  await logAudit(estado==='Rascunho'?'adicionado':'requisitado','Requisição de artigos',`${q.numero} · ${q.itens.length} artigo(s) · ${obra}`,{numero:q.numero});
-  if(estado!=='Rascunho')await pushNotif('Nova requisição',`${q.numero} submetida por ${CURRENT.nome} (${q.itens.length} artigo(s), ${q.prioridade})`,{paraPapeis:['Aprovador'],refId:q.id});
+  await logAudit(estado==='Rascunho'?'adicionado':'requisitado','Requisição de artigos',`${q.numero} · ${q.itens.length} artigo(s) · ${fMT(reqTotal(q))} MT · ${obra}`,{numero:q.numero});
+  if(estado!=='Rascunho')await pushNotif('Nova requisição',`${q.numero} submetida por ${CURRENT.nome} (${q.itens.length} artigo(s), ${fMT(reqTotal(q))} MT, ${q.prioridade})`,{paraPapeis:['Aprovador'],refId:q.id});
   pendingItens=[];renderPendingItens();['e-local','e-depto','e-just'].forEach(i=>$('#'+i).value='');$('#e-data').value=todayISO();$('#e-prio').value='Média';
-  renderERP();toast('Requisição '+q.numero+' guardada ('+estado+').');
+  renderERP();toast('Requisição '+q.numero+' guardada. Abra-a para anexar cotações/comprovativos.');
 }
 $('#saveRascunho')&&($('#saveRascunho').onclick=()=>guardarReq('Rascunho'));
 $('#submitReq')&&($('#submitReq').onclick=()=>guardarReq('Submetida'));
@@ -1180,9 +1249,14 @@ function openReqDetail(id){const q=DB.ereqs.find(x=>x.id===id);if(!q)return;reqO
   let itensHtml;
   const modoAprov=(q.estado==='Submetida'||q.estado==='Em aprovação')&&canAprovar();
   const modoCompra=q.estado==='Em compra'&&canComprar();
-  itensHtml=`<div class="tablewrap" style="margin-top:0"><table><thead><tr><th>Categoria</th><th>Artigo</th><th class="r">Qtd</th><th>Un</th>${modoAprov?'<th class="r">Aprovar qtd</th>':'<th class="r">Aprovada</th>'}${(modoCompra)?'<th class="r">Preço/un</th>':''}</tr></thead><tbody>${q.itens.map(i=>`<tr><td>${esc(i.categoria)}</td><td>${esc(i.nome)}${i.obs?`<br><span style="font-size:11px;color:var(--muted)">${esc(i.obs)}</span>`:''}</td><td class="r">${fL(i.qtd)}</td><td>${esc(i.unidade)}</td>${modoAprov?`<td class="r"><input id="ap_${i.id}" type="number" min="0" step="0.01" value="${i.qtd}" style="width:80px;text-align:right;padding:5px;border:1px solid var(--line);border-radius:6px"></td>`:`<td class="r">${fL(i.qtdAprovada)}</td>`}${modoCompra?`<td class="r"><input id="pr_${i.id}" type="number" min="0" step="0.01" value="${i.precoUnitario||''}" placeholder="MT" style="width:90px;text-align:right;padding:5px;border:1px solid var(--line);border-radius:6px"></td>`:''}</tr>`).join('')}</tbody></table></div>`;
+  itensHtml=`<div class="tablewrap" style="margin-top:0"><table><thead><tr><th>Categoria</th><th>Artigo</th><th class="r">Qtd</th><th>Un</th>${modoAprov?'<th class="r">Aprovar qtd</th>':'<th class="r">Aprovada</th>'}<th class="r">Preço/un</th><th class="r">Total</th></tr></thead><tbody>${q.itens.map(i=>{const qa=(i.qtdAprovada!=null?i.qtdAprovada:i.qtd);const lt=modoAprov?itemTotal(i):itemTotalAprov(i);return `<tr><td>${esc(i.categoria)}</td><td>${esc(i.nome)}${i.obs?`<br><span style="font-size:11px;color:var(--muted)">${esc(i.obs)}</span>`:''}</td><td class="r">${fL(i.qtd)}</td><td>${esc(i.unidade)}</td>${modoAprov?`<td class="r"><input id="ap_${i.id}" type="number" min="0" step="0.01" value="${i.qtd}" style="width:74px;text-align:right;padding:5px;border:1px solid var(--line);border-radius:6px"></td>`:`<td class="r">${fL(qa)}</td>`}${modoCompra?`<td class="r"><input id="pr_${i.id}" type="number" min="0" step="0.01" value="${i.precoUnitario||''}" placeholder="MT" style="width:86px;text-align:right;padding:5px;border:1px solid var(--line);border-radius:6px"></td>`:`<td class="r">${fMT(i.precoUnitario)}</td>`}<td class="r"><b>${fMT(lt)}</b></td></tr>`;}).join('')}</tbody><tfoot><tr><td colspan="6">VALOR TOTAL DA REQUISIÇÃO</td><td class="r" style="font-size:14px">${fMT(reqTotal(q))} MT</td></tr></tfoot></table></div>`;
   let fornSel='';
-  if(modoCompra){fornSel=`<div class="field" style="margin-top:12px"><label>Fornecedor</label><select id="buyForn"><option value="">— Selecionar / opcional —</option>${DB.fornecedores.map(f=>`<option>${esc(f.nome)}</option>`).join('')}</select></div>`;}
+  if(modoCompra){fornSel=`<div class="field" style="margin-top:12px"><label>Fornecedor</label><select id="buyForn"><option value="">— Selecionar / opcional —</option>${DB.fornecedores.map(f=>`<option ${q.fornecedor===f.nome?'selected':''}>${esc(f.nome)}</option>`).join('')}</select></div>`;}
+  const nAnex=anexosCount(q);
+  const pagBox=`<div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12.5px"><span><b>Método de pagamento:</b> ${esc(q.metodoPagamento||'—')}</span>${q.fornecedor?`<span><b>Fornecedor:</b> ${esc(q.fornecedor)}</span>`:''}</div>`;
+  let recvBox='';
+  if(q.recebimentoValor&&q.recebimentoValor.confirmado){const rv=q.recebimentoValor;recvBox=`<div class="chain" style="border-radius:9px;margin-top:10px"><div class="cl ok"><span class="dot"></span>Recebimento do valor confirmado por <b>${esc(rv.porNome)}</b> · ${fMT(rv.valor)} MT via ${esc(rv.metodo)} · ${dtPT(rv.data)}${rv.nota?' — '+esc(rv.nota):''}</div></div>`;}
+  const anexBtn=`<button class="btn line" data-eact="anexos">📎 Anexos (cotações / comprovativos)${nAnex?' · '+nAnex:''}</button>`;
   let acts=[];
   if(q.estado==='Rascunho'&&q.solicitanteId===CURRENT.id)acts.push(`<button class="btn" data-eact="submit">Submeter</button>`);
   if(modoAprov){acts.push(`<button class="btn good" data-eact="approve">Aprovar</button>`,`<button class="btn danger" data-eact="reject">Rejeitar</button>`,`<button class="btn line" data-eact="changes">Solicitar alterações</button>`);}
@@ -1190,16 +1264,20 @@ function openReqDetail(id){const q=DB.ereqs.find(x=>x.id===id);if(!q)return;reqO
   if(modoCompra)acts.push(`<button class="btn good" data-eact="buy">Confirmar compra → Inventário</button>`);
   if(q.estado==='Comprada'&&canArmazem())acts.push(`<button class="btn" data-eact="receber">Rececionar no armazém</button>`);
   if(q.estado==='Recebida'&&canArmazem())acts.push(`<button class="btn good" data-eact="entregar">Entregar ao requisitante · concluir</button>`);
+  if(['Comprada','Recebida','Concluída'].includes(q.estado)&&!(q.recebimentoValor&&q.recebimentoValor.confirmado)&&(q.solicitanteId===CURRENT.id||isDirecao(CURRENT)||canComprar()))acts.push(`<button class="btn slate" data-eact="valor">Confirmar recebimento do valor</button>`);
   if(['Rascunho','Submetida','Em aprovação','Aprovada','Em compra'].includes(q.estado)&&(q.solicitanteId===CURRENT.id||isDirecao(CURRENT)))acts.push(`<button class="btn danger" data-eact="cancel">Cancelar</button>`);
   const hist=(q.historico||[]).slice().reverse().map(h=>`<div class="cl ok"><span class="dot"></span><b>${esc(h.acao)}</b> — ${esc(h.userNome)}${h.papel?' ('+esc(h.papel)+')':''} · ${dtPT(h.data)}${h.nota?' — '+esc(h.nota):''}</div>`).join('');
-  $('#rdBody').innerHTML=`${q.justificacao?`<p style="font-size:13px;margin:0 0 12px"><b>Justificação:</b> ${esc(q.justificacao)}</p>`:''}${itensHtml}${fornSel}
+  $('#rdBody').innerHTML=`${q.justificacao?`<p style="font-size:13px;margin:0 0 12px"><b>Justificação:</b> ${esc(q.justificacao)}</p>`:''}${itensHtml}${pagBox}${fornSel}${recvBox}
+    <div style="margin-top:12px">${anexBtn}</div>
     <div class="chain" style="border-radius:9px;margin-top:12px">${hist||'<span style="font-size:12px;color:var(--muted)">Sem histórico.</span>'}</div>
     <div class="formfoot">${acts.join('')}<button class="btn line" data-eact="close">Fechar</button></div>`;
   $('#reqDetailOverlay').style.display='flex';
 }
 async function reqAction(act){const q=DB.ereqs.find(x=>x.id===reqOpenId);if(!q)return;
   if(act==='close'){$('#reqDetailOverlay').style.display='none';return;}
-  if(act==='submit'){q.estado='Submetida';addHist(q,'Submetida');await pushNotif('Nova requisição',`${q.numero} submetida por ${CURRENT.nome}`,{paraPapeis:['Aprovador'],refId:q.id});await logAudit('requisitado','Requisição de artigos',q.numero);}
+  if(act==='anexos'){openAnexos('ereq',q.id);return;}
+  if(act==='valor'){openValorModal(q);return;}
+  if(act==='submit'){q.estado='Submetida';addHist(q,'Submetida');await pushNotif('Nova requisição',`${q.numero} submetida por ${CURRENT.nome} (${fMT(reqTotal(q))} MT)`,{paraPapeis:['Aprovador'],refId:q.id});await logAudit('requisitado','Requisição de artigos',q.numero);}
   if(act==='approve'){q.itens.forEach(i=>{const el=$('#ap_'+i.id);const v=el?toNum(el.value):i.qtd;i.qtdAprovada=v;i.aprovado=v>0;});const parcial=q.itens.some(i=>i.qtdAprovada<i.qtd);q.estado='Aprovada';addHist(q,parcial?'Aprovada (parcial)':'Aprovada');await pushNotif('Requisição aprovada',`${q.numero} aprovada por ${CURRENT.nome}`,{paraUserId:q.solicitanteId,refId:q.id});await pushNotif('Requisição para compra',`${q.numero} pronta para aquisição`,{paraPapeis:['Compras'],refId:q.id});await logAudit('aprovado','Requisição de artigos',q.numero);}
   if(act==='reject'){const nota=prompt('Motivo da rejeição:')||'';q.estado='Rejeitada';addHist(q,'Rejeitada',nota);await pushNotif('Requisição rejeitada',`${q.numero} rejeitada${nota?': '+nota:''}`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('rejeitado','Requisição de artigos',q.numero+(nota?' — '+nota:''));}
   if(act==='changes'){const nota=prompt('Que alterações são necessárias?')||'';q.estado='Rascunho';addHist(q,'Alterações solicitadas',nota);await pushNotif('Alterações solicitadas',`${q.numero}: ${nota}`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('editado','Requisição de artigos',q.numero+' — alterações solicitadas');}
@@ -1208,7 +1286,7 @@ async function reqAction(act){const q=DB.ereqs.find(x=>x.id===reqOpenId);if(!q)r
     for(const i of q.itens){if(i.qtdAprovada<=0)continue;const el=$('#pr_'+i.id);i.precoUnitario=el?toNum(el.value):(i.precoUnitario||0);i.fornecedor=forn;
       const a=findOrCreateArticle(i.nome,i.categoria,i.unidade);if(forn&&!a.fornecedor)a.fornecedor=forn;a.dataAquisicao=todayISO();i.artigoId=a.id;
       await doMovement(a.id,'Compra',i.qtdAprovada,{obra:q.obra,precoUnit:i.precoUnitario,notas:'Compra ref. '+q.numero,dest:forn});tot+=i.qtdAprovada*(i.precoUnitario||0);}
-    q.estado='Comprada';q.valorCompra=tot;addHist(q,'Comprada',forn?('Fornecedor: '+forn):'');await pushNotif('Material adquirido',`${q.numero} comprado (${fMT(tot)} MT). Aguardando receção.`,{paraPapeis:['Armazém'],refId:q.id});await logAudit('adicionado','Compra / Inventário',`${q.numero} · ${fMT(tot)} MT em stock`);}
+    q.estado='Comprada';q.valorCompra=tot;q.fornecedor=forn;addHist(q,'Comprada',forn?('Fornecedor: '+forn+' · '+fMT(tot)+' MT'):(fMT(tot)+' MT'));await pushNotif('Material adquirido',`${q.numero} comprado (${fMT(tot)} MT). Aguardando receção.`,{paraPapeis:['Armazém'],refId:q.id});await logAudit('adicionado','Compra / Inventário',`${q.numero} · ${fMT(tot)} MT em stock`);}
   if(act==='receber'){q.estado='Recebida';addHist(q,'Rececionada no armazém');await pushNotif('Material recebido',`${q.numero} recebido no armazém`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('editado','Requisição de artigos',q.numero+' — recebida');}
   if(act==='entregar'){let n=0;for(const i of q.itens){if(i.artigoId&&i.qtdAprovada>0){await doMovement(i.artigoId,'Consumo em obra',i.qtdAprovada,{obra:q.obra,notas:'Entrega ref. '+q.numero,dest:q.solicitanteNome});i.qtdEntregue=i.qtdAprovada;n++;}}q.estado='Concluída';addHist(q,'Entregue ao requisitante');await pushNotif('Material entregue',`${q.numero} entregue a ${q.solicitanteNome}`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('editado','Requisição de artigos',q.numero+' — concluída ('+n+' itens entregues)');}
   if(act==='cancel'){if(!confirm('Cancelar a requisição '+q.numero+'?'))return;q.estado='Cancelada';addHist(q,'Cancelada');await logAudit('removido','Requisição de artigos',q.numero+' — cancelada (soft delete)');}
@@ -1216,6 +1294,16 @@ async function reqAction(act){const q=DB.ereqs.find(x=>x.id===reqOpenId);if(!q)r
   if(act!=='close'&&$('#reqDetailOverlay').style.display!=='none')openReqDetail(reqOpenId);
   renderERP();
 }
+/* ---------- confirmar recebimento do valor (pagamento) ---------- */
+function openValorModal(q){reqOpenId=q.id;$('#vv-req').textContent=q.numero+' · total '+fMT(reqTotal(q))+' MT';$('#vv-valor').value=(q.valorCompra||reqTotal(q)||'');
+  $('#vv-metodo').innerHTML=(typeof METODOS!=='undefined'?METODOS:['Numerário','Transferência bancária','M-Pesa','e-Mola','Cheque']).map(m=>`<option ${q.metodoPagamento===m?'selected':''}>${esc(m)}</option>`).join('');
+  $('#vv-nota').value='';$('#valorOverlay').style.display='flex';}
+$('#vv-cancel')&&($('#vv-cancel').onclick=()=>{$('#valorOverlay').style.display='none';});
+$('#vv-confirm')&&($('#vv-confirm').onclick=async()=>{const q=DB.ereqs.find(x=>x.id===reqOpenId);if(!q)return;const val=toNum($('#vv-valor').value);if(val<=0){toast('Indique o valor recebido.',true);return;}
+  q.recebimentoValor={confirmado:true,valor:val,metodo:$('#vv-metodo').value,porId:CURRENT.id,porNome:CURRENT.nome,data:new Date().toISOString(),nota:$('#vv-nota').value.trim()};
+  addHist(q,'Recebimento do valor confirmado',`${fMT(val)} MT via ${q.recebimentoValor.metodo}`);await commit('ereqs',KEYS.ereq);
+  await logAudit('recebido','Requisição de artigos',`${q.numero} · valor recebido ${fMT(val)} MT`);await pushNotif('Recebimento confirmado',`${q.numero}: recebido ${fMT(val)} MT`,{paraUserId:q.solicitanteId,refId:q.id});
+  $('#valorOverlay').style.display='none';if($('#reqDetailOverlay').style.display!=='none')openReqDetail(q.id);renderERP();toast('Recebimento do valor confirmado.');});
 
 /* ---------- inventário ---------- */
 function renderInv(){const el=$('#tblInv');if(!el)return;
@@ -1235,8 +1323,9 @@ function renderInv(){const el=$('#tblInv');if(!el)return;
 /* ---------- movimentos ---------- */
 $('#saveMov')&&($('#saveMov').onclick=async()=>{const artId=$('#m-artigo').value,tipo=$('#m-tipo').value,qtd=toNum($('#m-qtd').value);
   if(!artId){toast('Selecione o artigo.',true);return;}if(!tipo){toast('Selecione o tipo.',true);return;}if(qtd<=0){toast('Indique a quantidade.',true);return;}
-  const m=await doMovement(artId,tipo,qtd,{obra:$('#m-obra').value,dest:$('#m-dest').value.trim(),notas:$('#m-notas').value.trim(),data:$('#m-data').value});
-  if(m){await logAudit('editado','Movimento de stock',`${m.tipo} · ${m.artigoNome} · ${m.sinal>0?'+':'-'}${fL(m.qtd)}`);['m-qtd','m-dest','m-notas'].forEach(i=>$('#'+i).value='');renderERP();toast('Movimento registado.');}
+  const preco=$('#m-preco')?toNum($('#m-preco').value):0;
+  const m=await doMovement(artId,tipo,qtd,{obra:$('#m-obra').value,dest:$('#m-dest').value.trim(),notas:$('#m-notas').value.trim(),data:$('#m-data').value,precoUnit:preco||undefined});
+  if(m){await logAudit('editado','Movimento de stock',`${m.tipo} · ${m.artigoNome} · ${m.sinal>0?'+':'-'}${fL(m.qtd)} · ${fMT(m.custo)} MT`);['m-qtd','m-dest','m-notas','m-preco'].forEach(i=>$('#'+i)&&($('#'+i).value=''));renderERP();toast('Movimento registado.');}
 });
 function renderMov(){const el=$('#tblMov');if(!el)return;const term=($('#mv-q').value||'').toLowerCase(),tf=$('#mv-tipo').value;
   let list=[...DB.movimentos];if(tf)list=list.filter(m=>m.tipo===tf);if(term)list=list.filter(m=>((m.artigoNome||'')+' '+(m.tipo||'')+' '+(m.obra||'')).toLowerCase().includes(term));
@@ -1313,6 +1402,9 @@ function renderUsersModal(){const papeis=['Requisitante','Aprovador','Compras','
 
 /* ---------- click delegation (ERP) ---------- */
 document.body.addEventListener('click',async e=>{const t=e.target.closest('button, input[type=checkbox]');if(!t)return;
+  if(t.dataset.axview){viewAnexo(t.dataset.axview,t.dataset.axname);}
+  if(t.dataset.axdel){const rec=targetRec();if(rec&&confirm('Remover este anexo?')){rec.anexos=(rec.anexos||[]).filter(x=>x.id!==t.dataset.axdel);await persistTarget();await logAudit('removido','Anexo','removido de '+(anexoTarget.kind==='ereq'?rec.numero:'abastecimento'));renderAnexosModal();renderAll();}}
+  if(t.dataset.abanexos){openAnexos('abast',t.dataset.abanexos);}
   if(t.dataset.eopen){openReqDetail(t.dataset.eopen);}
   if(t.dataset.epage!=null&&t.dataset.epage!==''){erpReqPage=+t.dataset.epage;renderErpReqList();}
   if(t.dataset.eact){reqAction(t.dataset.eact);}

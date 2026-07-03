@@ -1,5 +1,5 @@
 /* BRC Frota — service worker (app shell offline) */
-const CACHE = 'brc-frota-v1';
+const CACHE = 'brc-frota-v3';
 const ASSETS = [
   './', './index.html', './manifest.webmanifest',
   './icon-192.png', './icon-512.png', './icon-maskable-512.png',
