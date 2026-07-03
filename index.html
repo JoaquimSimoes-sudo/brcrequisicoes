@@ -2,6 +2,7 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
+<script>try{var _t=localStorage.getItem('frota:tema');if(_t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BRC Construções — Gestão de Frota e Combustível</title>
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
@@ -213,6 +214,62 @@
     table{font-size:12.5px}
   }
   @media(max-width:400px){.form{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}.reqcard .rbody{grid-template-columns:1fr}}
+  /* ---------- HOME ---------- */
+  .hero{position:relative;border-radius:16px;overflow:hidden;margin-bottom:22px;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#c81519 0%,#9e1014 55%,#6f0d10 100%)}
+  .hero-bg:after{content:"";position:absolute;inset:0;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);background-size:26px 26px;mask-image:linear-gradient(115deg,#000,transparent 70%)}
+  .hero-in{position:relative;display:flex;align-items:center;gap:20px;padding:26px 26px 18px;flex-wrap:wrap}
+  .hero-logo img{height:66px;background:#fff;border-radius:12px;padding:8px 10px;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+  .hero-tx{color:#fff;min-width:0}
+  .hero-kick{font-size:11.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#ffd7d7}
+  .hero-h{font-size:26px;margin:4px 0 2px;color:#fff;letter-spacing:-.02em}
+  .hero-p{margin:0;font-size:13.5px;color:#ffe3e3}
+  .hero-proj{margin-top:9px;display:inline-block;font-size:11.5px;font-weight:700;background:rgba(255,255,255,.16);color:#fff;padding:5px 11px;border-radius:20px}
+  .hero-stats{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.18);border-top:1px solid rgba(255,255,255,.2)}
+  .hstat{background:rgba(158,16,20,.55);backdrop-filter:blur(2px);padding:13px 16px;text-align:center;color:#fff}
+  .hsv{font-family:var(--mono);font-weight:700;font-size:18px;line-height:1}
+  .hsl{font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:#ffdada;margin-top:5px}
+  @media(max-width:620px){.hero-stats{grid-template-columns:repeat(2,1fr)}.hero-h{font-size:21px}}
+  .homesec{margin-bottom:22px}
+  .hstitle{display:block;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:11px}
+  .htiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+  .htile{display:flex;align-items:center;gap:13px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px 16px;box-shadow:var(--shadow);transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;cursor:pointer}
+  .htile:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(35,40,43,.12);border-color:var(--brand)}
+  .htic{flex:0 0 auto;width:46px;height:46px;border-radius:11px;background:var(--brand-soft);color:var(--brand-deep);display:flex;align-items:center;justify-content:center}
+  .htic svg{width:24px;height:24px}
+  .httx{display:flex;flex-direction:column;min-width:0;flex:1}
+  .htt{font-size:14.5px;font-weight:700;display:flex;align-items:center;gap:7px}
+  .htd{font-size:12px;color:var(--muted);margin-top:2px}
+  .htbadge{background:var(--brand);color:#fff;font-size:10px;font-weight:800;border-radius:20px;padding:1px 7px}
+  .htgo{color:var(--line);font-size:20px;font-weight:700;transition:color .12s,transform .12s}
+  .htile:hover .htgo{color:var(--brand);transform:translateX(3px)}
+  .homeabout{border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:12.5px;display:flex;flex-direction:column;gap:10px}
+  .homeabout .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{font-size:11px;font-weight:600;background:var(--paper);border:1px solid var(--line);color:var(--ink-2);padding:3px 10px;border-radius:20px}
+  /* ---------- MODO ESCURO (Fluent/Fiori) ---------- */
+  [data-theme="dark"]{
+    --paper:#0e1417; --card:#171e22; --ink:#e7ecee; --ink-2:#c4ccd0;
+    --line:#2a343a; --line-2:#222b30; --muted:#8b98a1;
+    --brand-soft:#2c1416; --brand-tint:#3a181b; --brand-deep:#ff7376;
+    --slate-soft:#1b2329; --amber-soft:#2a2212;
+    --shadow:0 1px 2px rgba(0,0,0,.45),0 6px 18px rgba(0,0,0,.4);
+  }
+  [data-theme="dark"] body{background:var(--paper)}
+  [data-theme="dark"] header.app{background:var(--card)}
+  [data-theme="dark"] .ghost{background:#10171b;color:var(--ink-2);border-color:var(--line)}
+  [data-theme="dark"] .userchip{background:#10171b}
+  [data-theme="dark"] .field input,[data-theme="dark"] .field select,[data-theme="dark"] input,[data-theme="dark"] select,[data-theme="dark"] textarea{background:#10171b;color:var(--ink);border-color:var(--line)}
+  [data-theme="dark"] input::placeholder{color:#5f6d76}
+  [data-theme="dark"] .btn.line{background:#10171b;color:var(--ink);border-color:var(--line)}
+  [data-theme="dark"] .modal{background:var(--card)}
+  [data-theme="dark"] .kpi.accent{background:linear-gradient(180deg,var(--brand-soft),var(--card) 60%)}
+  [data-theme="dark"] table th{background:#0c1215}
+  [data-theme="dark"] tfoot td{background:#10171b}
+  [data-theme="dark"] .chip,[data-theme="dark"] .tagplate,[data-theme="dark"] .tagfin,[data-theme="dark"] .tagobra{background:#10171b}
+  [data-theme="dark"] .hstat{background:rgba(0,0,0,.4)}
+  [data-theme="dark"] .htic{background:var(--brand-soft);color:var(--brand-deep)}
+  [data-theme="dark"] .iconbtn{background:#10171b;color:var(--ink-2)}
+  [data-theme="dark"] .badge-online{background:#12201a}
 </style>
 </head>
 <body>
@@ -241,6 +298,7 @@
             <label style="display:flex;gap:5px;align-items:center;font-weight:500"><input type="checkbox" value="Armazém" style="width:auto">Armazém</label>
           </div>
         </div>
+        <div class="field"><label>📱 WhatsApp (com indicativo)</label><input id="rg-whatsapp" placeholder="Ex.: 258 84 000 0000" autocomplete="off"></div>
         <div class="field"><label>Criar código de acesso <span class="req">*</span></label><input id="rg-code" type="password" placeholder="Mín. 4 caracteres" autocomplete="off"></div>
         <div class="field"><label>Confirmar código <span class="req">*</span></label><input id="rg-code2" type="password" placeholder="Repita o código" autocomplete="off"></div>
         <button class="btn" id="doReg">Criar conta e entrar</button>
@@ -379,6 +437,50 @@
   </div>
 </div>
 
+<!-- PESQUISA GLOBAL -->
+<div class="overlay" id="searchOverlay" style="display:none">
+  <div class="modal" style="max-width:600px">
+    <div class="mh"><h2>Pesquisa global</h2><p>Requisições, artigos, fornecedores, movimentos, abastecimentos.</p></div>
+    <div class="mb">
+      <div class="field"><input id="gs-input" placeholder="Escreva para pesquisar…" autocomplete="off"></div>
+      <div id="gs-results" style="max-height:60vh;overflow:auto;margin-top:6px"></div>
+      <div style="margin-top:10px"><button class="btn line" id="gs-close">Fechar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- COTAÇÕES / RFQ -->
+<div class="overlay" id="rfqOverlay" style="display:none">
+  <div class="modal" style="max-width:620px">
+    <div class="mh"><h2>Cotações &amp; comparação</h2><p id="rfqSub"></p></div>
+    <div class="mb">
+      <div id="rfqList" style="max-height:42vh;overflow:auto;margin-bottom:12px"></div>
+      <div style="border-top:1px dashed var(--line);padding-top:12px">
+        <div class="form">
+          <div class="field"><label>Fornecedor</label><select id="rfq-forn"></select></div>
+          <div class="field"><label>Novo fornecedor</label><input id="rfq-forn-novo" placeholder="Nome" style="display:none"></div>
+          <div class="field"><label>Valor total (MT) <span class="req">*</span></label><input id="rfq-valor" type="number" min="0" step="0.01"></div>
+          <div class="field"><label>Prazo de entrega</label><input id="rfq-prazo" placeholder="Ex.: 5 dias"></div>
+          <div class="field wide"><label>Nota</label><input id="rfq-nota" placeholder="Condições, validade…"></div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:6px"><button class="btn" id="rfq-add" style="flex:1">Adicionar cotação</button><button class="btn line" id="rfq-close">Fechar</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHATSAPP -->
+<div class="overlay" id="waOverlay" style="display:none">
+  <div class="modal" style="max-width:460px">
+    <div class="mh"><h2 id="waTitle">Notificar por WhatsApp</h2><p>Toque no destinatário — o WhatsApp abre com a mensagem pronta; confirme o envio.</p></div>
+    <div class="mb">
+      <div id="waMsg" style="white-space:pre-wrap;background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:11px 12px;font-size:12.5px;margin-bottom:12px"></div>
+      <div id="waList"></div>
+      <div style="display:flex;gap:10px;margin-top:6px"><button class="btn line" id="wa-copy">Copiar mensagem</button><button class="btn line" id="wa-close" style="margin-left:auto">Fechar</button></div>
+    </div>
+  </div>
+</div>
+
 <header class="app">
   <div class="bar">
     <div class="brand">
@@ -389,6 +491,8 @@
     <div class="topctrl">
       <span class="badge-online" id="onlineBadge"><span class="dot"></span><span id="onlineTxt">Partilhado</span></span>
       <div class="userchip" id="userChip" style="display:none"><div class="ua" id="uaInit"></div><div><div class="un" id="uaName"></div><div class="ur" id="uaRole"></div></div></div>
+      <button class="ghost" id="btnSearch" title="Pesquisa global">🔍</button>
+      <button class="ghost" id="btnTheme" title="Modo claro/escuro">🌙</button>
       <button class="ghost" id="btnBell" title="Notificações" style="position:relative">🔔<span id="bellCount" style="display:none;position:absolute;top:-5px;right:-5px;background:var(--brand);color:#fff;font-size:9px;font-weight:800;border-radius:20px;padding:1px 5px">0</span></button>
       <button class="ghost" id="btnInstall" title="Instalar aplicação" style="display:none">⤓ Instalar</button>
       <button class="ghost" id="btnCloud" title="Sincronização na nuvem (multi-dispositivo)">☁ Nuvem</button>
@@ -400,7 +504,8 @@
   </div>
   <nav class="tabs">
     <div class="tabsinner" id="tabs">
-      <button class="tab active" data-view="painel">Painel</button>
+      <button class="tab active" data-view="home">Início</button>
+      <button class="tab" data-view="painel">Painel Frota</button>
       <button class="tab" data-view="painelerp">Painel ERP</button>
       <button class="tab" data-view="abast">Abastecimentos</button>
       <button class="tab" data-view="rotas">Rotas</button>
@@ -419,8 +524,11 @@
 </header>
 
 <main>
+  <!-- ================= INÍCIO (HOME) ================= -->
+  <section class="view active" id="view-home"></section>
+
   <!-- PAINEL -->
-  <section class="view active" id="view-painel">
+  <section class="view" id="view-painel">
     <div class="viewhead"><div><div class="eyebrow">Visão geral</div><h2>Painel de Controlo</h2><div class="hint" id="periodHint">A apresentar todos os registos.</div></div></div>
     <div class="grid kpis" id="kpis"></div>
     <div class="two">
@@ -523,7 +631,7 @@
   <!-- ================= PAINEL ERP ================= -->
   <section class="view" id="view-painelerp">
     <div class="viewhead"><div><div class="eyebrow">Procurement &amp; Inventário</div><h2>Painel ERP</h2><div class="hint">Requisições, compras, stock e consumo em tempo real.</div></div>
-      <div><button class="btn line sm" id="btnUsers" style="display:none">Gerir utilizadores &amp; papéis</button></div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn line sm" id="erpCsvReq">↓ CSV Requisições</button><button class="btn line sm" id="erpCsvInv">↓ CSV Inventário</button><button class="btn line sm" id="erpCsvMov">↓ CSV Movimentos</button><button class="btn line sm" id="erpPrintInv">🖨 Inventário PDF</button><button class="btn line sm" id="btnUsers" style="display:none">Utilizadores &amp; papéis</button></div></div>
     <div class="grid kpis" id="erpKpis"></div>
     <div class="two">
       <div class="panel"><div class="ph"><h3>Custo de aquisições por categoria</h3><span class="eyebrow">MT</span></div><div class="pb" id="erpCatBars"></div></div>
@@ -533,6 +641,16 @@
       <div class="panel"><div class="ph"><h3>Consumo por projeto / obra</h3><span class="eyebrow">MT</span></div><div class="pb" id="erpProjBars"></div></div>
       <div class="panel"><div class="ph"><h3>Artigos com stock crítico</h3><span class="eyebrow" id="critCount"></span></div><div class="pb" id="erpCritico"></div></div>
     </div>
+    <div class="panel" style="margin-bottom:16px"><div class="ph"><h3>💡 Insights &amp; recomendações (IA)</h3><span class="eyebrow">análise automática</span></div><div class="pb" id="erpInsights"></div></div>
+    <div class="panel"><div class="ph"><h3>🎯 Controlo orçamental</h3><span class="eyebrow">orçamento vs. real</span></div><div class="pb">
+      <div class="form" id="formOrc" style="margin-bottom:6px">
+        <div class="field"><label>Projeto / Obra <span class="req">*</span></label><select id="o-obra"></select></div>
+        <div class="field"><label>Categoria (opcional)</label><select id="o-cat"><option value="">Todas as categorias</option></select></div>
+        <div class="field"><label>Orçamento (MT) <span class="req">*</span></label><input id="o-valor" type="number" min="0" step="0.01"></div>
+        <div class="field"><label>&nbsp;</label><button class="btn line" id="o-save">Definir orçamento</button></div>
+      </div>
+      <div id="erpBudgets"></div>
+    </div></div>
   </section>
 
   <!-- ================= REQUISIÇÕES (ERP) ================= -->
@@ -656,7 +774,7 @@
 =========================================================== */
 const SHARED=true;
 const KEYS={u:'frota:users',v:'frota:viaturas',a:'frota:abastecimentos',r:'frota:rotas',q:'frota:requisicoes',audit:'frota:auditoria',c:'frota:config',
-  ecat:'frota:erp_categorias',eforn:'frota:erp_fornecedores',eart:'frota:erp_artigos',ereq:'frota:erp_requisicoes',emov:'frota:erp_movimentos',enot:'frota:erp_notificacoes'};
+  ecat:'frota:erp_categorias',eforn:'frota:erp_fornecedores',eart:'frota:erp_artigos',ereq:'frota:erp_requisicoes',emov:'frota:erp_movimentos',enot:'frota:erp_notificacoes',eorc:'frota:erp_orcamentos'};
 const SESSION='frota:session';
 const hasWS = typeof window!=='undefined' && window.storage && typeof window.storage.get==='function';
 /* Nuvem (Firebase). Para ativar em TODOS os dispositivos de uma vez, preencha aqui
@@ -688,7 +806,7 @@ const OUTROS_DESTINOS=['Escritório / Estaleiro','Nampula-Cidade','Oficina / Man
 const FINALIDADES=['Obra – Centro de Saúde','Administrativa','Manutenção','Logística / Compras','Supervisão / Fiscalização','Transporte de pessoal','Outro'];
 
 let DB={users:[],viaturas:[],abastecimentos:[],rotas:[],requisicoes:[],auditoria:[],config:{gestor:''},
-  categorias:[],fornecedores:[],artigos:[],ereqs:[],movimentos:[],notificacoes:[]};
+  categorias:[],fornecedores:[],artigos:[],ereqs:[],movimentos:[],notificacoes:[],orcamentos:[]};
 let CURRENT=null;
 
 /* ---------- storage ---------- */
@@ -706,7 +824,7 @@ async function commit(coll,key){const ok=await saveKey(key,DB[coll]);if(!ok)toas
 
 /* ---------- nuvem (Firebase) ---------- */
 const CMAP={u:'users',v:'viaturas',a:'abastecimentos',r:'rotas',q:'requisicoes',audit:'auditoria',c:'config',
-  ecat:'categorias',eforn:'fornecedores',eart:'artigos',ereq:'ereqs',emov:'movimentos',enot:'notificacoes'};
+  ecat:'categorias',eforn:'fornecedores',eart:'artigos',ereq:'ereqs',emov:'movimentos',enot:'notificacoes',eorc:'orcamentos'};
 async function initCloud(){
   const cfg=getFbConfig();
   if(!cfg||typeof firebase==='undefined')return false;
@@ -807,7 +925,7 @@ $('#doReg').onclick=async()=>{
   const papeis=Array.from(document.querySelectorAll('#rg-papeis input:checked')).map(x=>x.value);
   if(nivel>=4){['Requisitante','Aprovador','Compras','Armazém','Direção'].forEach(p=>{if(!papeis.includes(p))papeis.push(p);});}
   if(!papeis.length)papeis.push('Requisitante');
-  const u={id:uid(),nome,nivel,papeis,codigoHash:await hashCode(c),criadoEm:new Date().toISOString()};
+  const u={id:uid(),nome,nivel,papeis,whatsapp:($('#rg-whatsapp')?$('#rg-whatsapp').value.trim():''),codigoHash:await hashCode(c),criadoEm:new Date().toISOString()};
   DB.users.push(u);await commit('users',KEYS.u);
   setSession(u);await logAudit('adicionado','Utilizador',`${nome} (${nivelLabel(nivel)}) · papéis: ${papeis.join(', ')}`);
   enterApp();toast('Conta criada. Bem-vindo, '+nome.split(' ')[0]+'.');
@@ -1054,8 +1172,7 @@ function setBackendBadge(){
   else{b.className='badge-online local';t.textContent='Modo local';$('#storeStatus').textContent='Modo local — dados só neste dispositivo. Toque em “Nuvem” para sincronizar entre telemóveis e computadores.';$('#loginLocalNote').textContent='Modo local: configure a nuvem para multi-dispositivo.';}
 }
 /* init() é chamado no final do módulo ERP */</script>
-<script>
-/* ================================================================
+<script>/* ================================================================
    MÓDULO ERP — Requisições · Aprovação · Compras · Inventário ·
    Movimentos · Consumo · Notificações · Painel
    (integra-se com o app existente; reutiliza DB, CURRENT, helpers)
@@ -1094,8 +1211,8 @@ function catOptions(all){return (all?'<option value="">Todas</option>':'')+catLi
 
 /* ---------- anexos (PDF / foto) ---------- */
 function readFileDataUrl(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});}
-function compressImage(file){return new Promise((res,rej)=>{const img=new Image();const u=URL.createObjectURL(file);img.onload=()=>{const max=1600;let w=img.width,h=img.height;if(w>max||h>max){const s=Math.min(max/w,max/h);w=Math.round(w*s);h=Math.round(h*s);}const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.72));};img.onerror=rej;img.src=u;});}
-async function processFile(file){if(file.type&&file.type.indexOf('image/')===0){return {mime:'image/jpeg',dataUrl:await compressImage(file)};}return {mime:file.type||'application/octet-stream',dataUrl:await readFileDataUrl(file)};}
+function compressImage(file,maxBytes){return new Promise((res,rej)=>{const img=new Image();const u=URL.createObjectURL(file);img.onload=()=>{URL.revokeObjectURL(u);let dim=1600,q=0.72,dataUrl='';const render=()=>{let w=img.width,h=img.height;if(w>dim||h>dim){const s=Math.min(dim/w,dim/h);w=Math.round(w*s);h=Math.round(h*s);}const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);ctx.drawImage(img,0,0,w,h);dataUrl=c.toDataURL('image/jpeg',q);return dataUrlBytes(dataUrl);};let bytes=render(),guard=0;while(maxBytes&&bytes>maxBytes&&guard<16){if(q>0.42)q-=0.08;else dim=Math.round(dim*0.82);bytes=render();guard++;}res(dataUrl);};img.onerror=rej;img.src=u;});}
+async function processFile(file){if(file.type&&file.type.indexOf('image/')===0){return {mime:'image/jpeg',dataUrl:await compressImage(file,MAX_ANEXO)};}return {mime:file.type||'application/octet-stream',dataUrl:await readFileDataUrl(file)};}
 function dataUrlBytes(d){const i=d.indexOf(',');return Math.round((d.length-i-1)*0.75);}
 async function saveAnexoBytes(id,dataUrl){if(BACKEND==='cloud'){try{await fdb.collection('frota_anexos').doc(id).set({dataUrl,criadoEm:Date.now()});return true;}catch(e){return false;}}return await saveKey('frota:anexo_'+id,{dataUrl});}
 async function loadAnexoBytes(id){if(BACKEND==='cloud'){try{const d=await fdb.collection('frota_anexos').doc(id).get();return d.exists?d.data().dataUrl:null;}catch(e){return null;}}const v=await loadKey('frota:anexo_'+id,null);return v?v.dataUrl:null;}
@@ -1116,7 +1233,7 @@ function renderAnexosModal(){const rec=targetRec();if(!rec)return;rec.anexos=rec
 }
 $('#ax-add')&&($('#ax-add').onclick=async()=>{const rec=targetRec();if(!rec)return;const inp=$('#ax-file');const f=inp.files[0];if(!f){toast('Escolha um ficheiro (PDF ou foto).',true);return;}
   toast('A processar ficheiro…');let proc;try{proc=await processFile(f);}catch(e){toast('Não foi possível ler o ficheiro.',true);return;}
-  const bytes=dataUrlBytes(proc.dataUrl);if(bytes>MAX_ANEXO){toast('Ficheiro grande ('+(bytes/1024|0)+' KB). Máx ~750 KB — fotografe o documento ou reduza o PDF.',true);inp.value='';return;}
+  const bytes=dataUrlBytes(proc.dataUrl);if(bytes>MAX_ANEXO){toast('PDF grande ('+(bytes/1024|0)+' KB). Máx ~750 KB. As FOTOS são comprimidas automaticamente — para PDFs pesados, fotografe as páginas.',true);inp.value='';return;}
   const id=uid();const meta={id,categoria:$('#ax-cat').value,nome:f.name,mime:proc.mime,tamanho:bytes,criadoPorNome:CURRENT?CURRENT.nome:'—',criadoEm:new Date().toISOString()};
   const ok=await saveAnexoBytes(id,proc.dataUrl);if(!ok){toast('Falha ao guardar o anexo.',true);return;}
   rec.anexos=rec.anexos||[];rec.anexos.push(meta);inp.value='';await persistTarget();await logAudit('adicionado','Anexo',`${meta.categoria}: ${meta.nome} (${anexoTarget.kind==='ereq'?rec.numero:'abastecimento'})`);renderAnexosModal();renderAll();toast('Anexo adicionado.');});
@@ -1167,10 +1284,10 @@ async function doMovement(artId,tipo,qtd,opt){opt=opt||{};const a=artObj(artId);
 
 /* ---------- selects ---------- */
 function buildERPSelectors(){
-  ['#e-obra','#m-obra','#em-obra','#ar-obra'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML=destinoOptions(false);el.value=v;});
+  ['#e-obra','#m-obra','#em-obra','#ar-obra','#o-obra'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML=destinoOptions(false);el.value=v;});
   ['#er-obra','#inv-obra'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML=destinoOptions(true);el.value=v;});
   ['#i-cat','#ar-cat'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML='<option value="">— Selecionar —</option>'+catOptions(false);el.value=v;});
-  ['#inv-cat'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML=catOptions(true);el.value=v;});
+  ['#inv-cat','#o-cat'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML=catOptions(true);el.value=v;});
   const est=$('#er-estado');if(est){const v=est.value;est.innerHTML='<option value="">Todos</option>'+ERP_ESTADOS.map(e=>`<option>${esc(e)}</option>`).join('');est.value=v;}
   const artOpts=DB.artigos.map(a=>`<option value="${a.id}">${esc(a.codigoInterno)} — ${esc(a.nome)} (disp: ${fL(a.qtdDisponivel)} ${esc(a.unidade)})</option>`).join('');
   ['#m-artigo','#em-artigo'].forEach(s=>{const el=$(s);if(!el)return;const v=el.value;el.innerHTML='<option value="">— Selecionar —</option>'+artOpts;el.value=v;});
@@ -1205,6 +1322,7 @@ async function guardarReq(estado){
   if(estado!=='Rascunho')await pushNotif('Nova requisição',`${q.numero} submetida por ${CURRENT.nome} (${q.itens.length} artigo(s), ${fMT(reqTotal(q))} MT, ${q.prioridade})`,{paraPapeis:['Aprovador'],refId:q.id});
   pendingItens=[];renderPendingItens();['e-local','e-depto','e-just'].forEach(i=>$('#'+i).value='');$('#e-data').value=todayISO();$('#e-prio').value='Média';
   renderERP();toast('Requisição '+q.numero+' guardada. Abra-a para anexar cotações/comprovativos.');
+  if(estado!=='Rascunho')openWA(direcaoWA(),msgReqNova(q),'Notificar Direção (WhatsApp)');
 }
 $('#saveRascunho')&&($('#saveRascunho').onclick=()=>guardarReq('Rascunho'));
 $('#submitReq')&&($('#submitReq').onclick=()=>guardarReq('Submetida'));
@@ -1261,6 +1379,7 @@ function openReqDetail(id){const q=DB.ereqs.find(x=>x.id===id);if(!q)return;reqO
   if(q.estado==='Rascunho'&&q.solicitanteId===CURRENT.id)acts.push(`<button class="btn" data-eact="submit">Submeter</button>`);
   if(modoAprov){acts.push(`<button class="btn good" data-eact="approve">Aprovar</button>`,`<button class="btn danger" data-eact="reject">Rejeitar</button>`,`<button class="btn line" data-eact="changes">Solicitar alterações</button>`);}
   if(q.estado==='Aprovada'&&canComprar())acts.push(`<button class="btn" data-eact="tocompra">Marcar em compra</button>`);
+  if((q.estado==='Aprovada'||q.estado==='Em compra')&&canComprar())acts.push(`<button class="btn line" data-eact="rfq">📋 Cotações / Comparar</button>`);
   if(modoCompra)acts.push(`<button class="btn good" data-eact="buy">Confirmar compra → Inventário</button>`);
   if(q.estado==='Comprada'&&canArmazem())acts.push(`<button class="btn" data-eact="receber">Rececionar no armazém</button>`);
   if(q.estado==='Recebida'&&canArmazem())acts.push(`<button class="btn good" data-eact="entregar">Entregar ao requisitante · concluir</button>`);
@@ -1270,15 +1389,17 @@ function openReqDetail(id){const q=DB.ereqs.find(x=>x.id===id);if(!q)return;reqO
   $('#rdBody').innerHTML=`${q.justificacao?`<p style="font-size:13px;margin:0 0 12px"><b>Justificação:</b> ${esc(q.justificacao)}</p>`:''}${itensHtml}${pagBox}${fornSel}${recvBox}
     <div style="margin-top:12px">${anexBtn}</div>
     <div class="chain" style="border-radius:9px;margin-top:12px">${hist||'<span style="font-size:12px;color:var(--muted)">Sem histórico.</span>'}</div>
-    <div class="formfoot">${acts.join('')}<button class="btn line" data-eact="close">Fechar</button></div>`;
+    <div class="formfoot">${acts.join('')}<button class="btn line" data-eact="print">🖨 Comprovativo (PDF)</button><button class="btn line" data-eact="close">Fechar</button></div>`;
   $('#reqDetailOverlay').style.display='flex';
 }
 async function reqAction(act){const q=DB.ereqs.find(x=>x.id===reqOpenId);if(!q)return;
   if(act==='close'){$('#reqDetailOverlay').style.display='none';return;}
   if(act==='anexos'){openAnexos('ereq',q.id);return;}
+  if(act==='print'){printReqVoucher(q);return;}
+  if(act==='rfq'){openRFQ(q);return;}
   if(act==='valor'){openValorModal(q);return;}
-  if(act==='submit'){q.estado='Submetida';addHist(q,'Submetida');await pushNotif('Nova requisição',`${q.numero} submetida por ${CURRENT.nome} (${fMT(reqTotal(q))} MT)`,{paraPapeis:['Aprovador'],refId:q.id});await logAudit('requisitado','Requisição de artigos',q.numero);}
-  if(act==='approve'){q.itens.forEach(i=>{const el=$('#ap_'+i.id);const v=el?toNum(el.value):i.qtd;i.qtdAprovada=v;i.aprovado=v>0;});const parcial=q.itens.some(i=>i.qtdAprovada<i.qtd);q.estado='Aprovada';addHist(q,parcial?'Aprovada (parcial)':'Aprovada');await pushNotif('Requisição aprovada',`${q.numero} aprovada por ${CURRENT.nome}`,{paraUserId:q.solicitanteId,refId:q.id});await pushNotif('Requisição para compra',`${q.numero} pronta para aquisição`,{paraPapeis:['Compras'],refId:q.id});await logAudit('aprovado','Requisição de artigos',q.numero);}
+  if(act==='submit'){q.estado='Submetida';addHist(q,'Submetida');await pushNotif('Nova requisição',`${q.numero} submetida por ${CURRENT.nome} (${fMT(reqTotal(q))} MT)`,{paraPapeis:['Aprovador'],refId:q.id});await logAudit('requisitado','Requisição de artigos',q.numero);await commit('ereqs',KEYS.ereq);openWA(direcaoWA(),msgReqNova(q),'Notificar Direção (WhatsApp)');renderERP();return;}
+  if(act==='approve'){q.itens.forEach(i=>{const el=$('#ap_'+i.id);const v=el?toNum(el.value):i.qtd;i.qtdAprovada=v;i.aprovado=v>0;});const parcial=q.itens.some(i=>i.qtdAprovada<i.qtd);q.estado='Aprovada';addHist(q,parcial?'Aprovada (parcial)':'Aprovada');await pushNotif('Requisição aprovada',`${q.numero} aprovada por ${CURRENT.nome}`,{paraUserId:q.solicitanteId,refId:q.id});await pushNotif('Requisição para compra',`${q.numero} pronta para aquisição`,{paraPapeis:['Compras'],refId:q.id});await logAudit('aprovado','Requisição de artigos',q.numero);await commit('ereqs',KEYS.ereq);openWA(userWA(q.solicitanteId),msgReqAprovada(q),'Notificar requisitante (WhatsApp)');renderERP();return;}
   if(act==='reject'){const nota=prompt('Motivo da rejeição:')||'';q.estado='Rejeitada';addHist(q,'Rejeitada',nota);await pushNotif('Requisição rejeitada',`${q.numero} rejeitada${nota?': '+nota:''}`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('rejeitado','Requisição de artigos',q.numero+(nota?' — '+nota:''));}
   if(act==='changes'){const nota=prompt('Que alterações são necessárias?')||'';q.estado='Rascunho';addHist(q,'Alterações solicitadas',nota);await pushNotif('Alterações solicitadas',`${q.numero}: ${nota}`,{paraUserId:q.solicitanteId,refId:q.id});await logAudit('editado','Requisição de artigos',q.numero+' — alterações solicitadas');}
   if(act==='tocompra'){q.estado='Em compra';addHist(q,'Em compra');await logAudit('editado','Requisição de artigos',q.numero+' — em compra');}
@@ -1398,10 +1519,16 @@ function renderErpDashboard(){
 $('#btnUsers')&&($('#btnUsers').onclick=()=>{if(!isDirecao(CURRENT)){toast('Apenas a Direção.',true);return;}renderUsersModal();$('#usersOverlay').style.display='flex';});
 $('#usersClose')&&($('#usersClose').onclick=()=>{$('#usersOverlay').style.display='none';});
 function renderUsersModal(){const papeis=['Requisitante','Aprovador','Compras','Armazém','Direção'];
-  $('#usersBody').innerHTML=DB.users.map(u=>`<div style="border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px"><div style="display:flex;justify-content:space-between"><b>${esc(u.nome)}</b><span class="rolebadge lvl${u.nivel}">${esc(nivelLabel(u.nivel))}</span></div><div style="display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px">${papeis.map(p=>`<label style="display:flex;gap:5px;align-items:center;font-size:12.5px"><input type="checkbox" data-erole="${u.id}|${p}" ${(u.papeis||[]).includes(p)?'checked':''} style="width:auto">${p}</label>`).join('')}</div></div>`).join('');}
+  $('#usersBody').innerHTML=DB.users.map(u=>`<div style="border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px"><div style="display:flex;justify-content:space-between"><b>${esc(u.nome)}</b><span class="rolebadge lvl${u.nivel}">${esc(nivelLabel(u.nivel))}</span></div><div style="display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:8px">${papeis.map(p=>`<label style="display:flex;gap:5px;align-items:center;font-size:12.5px"><input type="checkbox" data-erole="${u.id}|${p}" ${(u.papeis||[]).includes(p)?'checked':''} style="width:auto">${p}</label>`).join('')}</div><div class="field" style="margin-top:9px"><label style="font-size:11px">📱 WhatsApp (com indicativo, ex.: 258 84 000 0000)</label><input data-waedit="${u.id}" value="${esc(u.whatsapp||'')}" placeholder="258 84 000 0000"></div></div>`).join('');}
 
 /* ---------- click delegation (ERP) ---------- */
 document.body.addEventListener('click',async e=>{const t=e.target.closest('button, input[type=checkbox]');if(!t)return;
+  if(t.dataset.wa){window.open(t.dataset.wa,'_blank');}
+  if(t.dataset.go){switchView(t.dataset.go);window.scrollTo({top:0,behavior:'smooth'});}
+  if(t.dataset.gsidx){const r=gsLast[+t.dataset.gsidx];if(r){$('#searchOverlay').style.display='none';switchView(r.go);if(r.open)setTimeout(r.open,60);}}
+  if(t.dataset.odel){if(confirm('Remover este orçamento?')){DB.orcamentos=DB.orcamentos.filter(x=>x.id!==t.dataset.odel);await commit('orcamentos',KEYS.eorc);await logAudit('removido','Orçamento','removido');renderERP();}}
+  if(t.dataset.rfqpick){const q=DB.ereqs.find(x=>x.id===reqOpenId);const c=q&&(q.cotacoes||[]).find(x=>x.id===t.dataset.rfqpick);if(q&&c){q.fornecedor=c.fornecedor;q.cotacaoEscolhida=c.id;addHist(q,'Fornecedor escolhido (cotação)',`${c.fornecedor}: ${fMT(c.valor)} MT`);await commit('ereqs',KEYS.ereq);await logAudit('editado','Cotação escolhida',`${q.numero} · ${c.fornecedor} · ${fMT(c.valor)} MT`);openRFQ(q);renderERP();toast('Fornecedor selecionado: '+c.fornecedor);}}
+  if(t.dataset.rfqdel){const q=DB.ereqs.find(x=>x.id===reqOpenId);if(q&&confirm('Remover esta cotação?')){q.cotacoes=(q.cotacoes||[]).filter(x=>x.id!==t.dataset.rfqdel);await commit('ereqs',KEYS.ereq);openRFQ(q);}}
   if(t.dataset.axview){viewAnexo(t.dataset.axview,t.dataset.axname);}
   if(t.dataset.axdel){const rec=targetRec();if(rec&&confirm('Remover este anexo?')){rec.anexos=(rec.anexos||[]).filter(x=>x.id!==t.dataset.axdel);await persistTarget();await logAudit('removido','Anexo','removido de '+(anexoTarget.kind==='ereq'?rec.numero:'abastecimento'));renderAnexosModal();renderAll();}}
   if(t.dataset.abanexos){openAnexos('abast',t.dataset.abanexos);}
@@ -1421,16 +1548,202 @@ $('#notifReadAll')&&($('#notifReadAll').onclick=async()=>{DB.notificacoes.forEac
 ['#inv-q','#inv-cat','#inv-obra','#inv-flt'].forEach(s=>$(s)&&$(s).addEventListener('input',renderInv));
 ['#mv-q','#mv-tipo'].forEach(s=>$(s)&&$(s).addEventListener('input',renderMov));
 
+/* ---------- ECRÃ INICIAL (HOME) ---------- */
+function svg(p){return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;}
+const IC={
+ fuel:svg('<rect x="4" y="3" width="9" height="18" rx="1.5"/><path d="M13 8h3a2 2 0 012 2v6a1.5 1.5 0 003 0V9l-3-3"/><path d="M6 7h5v4H6z"/>'),
+ route:svg('<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 17h6a3 3 0 003-3V9M6 15V8a2 2 0 012-2h4"/>'),
+ car:svg('<path d="M3 13l1.5-4.5A2 2 0 016.4 7h7.2a2 2 0 011.9 1.5L17 13M3 13h14M3 13v4h14v-4"/><circle cx="6.5" cy="17" r="1.5"/><circle cx="14.5" cy="17" r="1.5"/>'),
+ req:svg('<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>'),
+ box:svg('<path d="M21 8l-9-5-9 5 9 5 9-5zM3 8v8l9 5 9-5V8M12 13v8"/>'),
+ mov:svg('<path d="M7 7h11l-3-3M17 17H6l3 3"/>'),
+ supplier:svg('<path d="M3 13l1.5-4.5A2 2 0 016.4 7H14v6M14 7h3l3 3v3M3 13h17v3H3zM7 16a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm10 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3z"/>'),
+ chart:svg('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'),
+ report:svg('<path d="M7 3h7l5 5v13a1 1 0 01-1 1H7a1 1 0 01-1-1V4a1 1 0 011-1zM14 3v5h5M9 13h6M9 17h6"/>'),
+ hist:svg('<path d="M3 3v6h6M3.5 9a9 9 0 102.5-6.5L3 9"/><path d="M12 8v4l3 2"/>'),
+ users:svg('<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0112 0M16 6a3 3 0 010 6M21 20a6 6 0 00-4-5.7"/>'),
+};
+function homeCard(c){const badge=c.badge?`<span class="htbadge">${c.badge}</span>`:'';return `<button class="htile" data-go="${c.view}"><span class="htic">${c.icon}</span><span class="httx"><span class="htt">${esc(c.title)}${badge}</span><span class="htd">${esc(c.desc)}</span></span><span class="htgo">→</span></button>`;}
+function renderHome(){const el=$('#view-home');if(!el||!CURRENT)return;
+  const logo=(document.querySelector('header.app .brand img')||{}).src||'';
+  const fuelPend=DB.requisicoes.filter(q=>q.status==='Pendente').length;
+  const erpAcao=DB.ereqs.filter(reqPodeAgir).length;
+  const valInv=DB.artigos.reduce((s,a)=>s+(a.qtdDisponivel||0)*(a.precoUnitario||0),0);
+  const nCentros=CENTROS.reduce((s,g)=>s+g.cs.length,0);
+  const hora=new Date().getHours();const saud=hora<12?'Bom dia':hora<19?'Boa tarde':'Boa noite';
+  const stat=(v,l)=>`<div class="hstat"><div class="hsv">${v}</div><div class="hsl">${l}</div></div>`;
+  const sec1=[{icon:IC.fuel,title:'Abastecimentos',desc:'Registar combustível e consumo',view:'abast'},{icon:IC.route,title:'Rotas / Viagens',desc:'Deslocações e quilómetros',view:'rotas'},{icon:IC.req,title:'Requisição de Combustível',desc:'Pedidos e aprovação de combustível',view:'requis',badge:fuelPend||''},{icon:IC.car,title:'Viaturas & Equipamentos',desc:'Frota, máquinas e geradores',view:'viaturas'}];
+  const sec2=[{icon:IC.req,title:'Requisições de Materiais',desc:'Materiais, ferramentas, EPIs, equipamentos',view:'erpreq',badge:erpAcao||''},{icon:IC.box,title:'Inventário',desc:'Stock e valor por armazém',view:'inv'},{icon:IC.mov,title:'Movimentos de Stock',desc:'Entradas, saídas e ajustes',view:'mov'},{icon:IC.supplier,title:'Fornecedores',desc:'Registo e contactos',view:'forn'}];
+  const sec3=[{icon:IC.chart,title:'Painel Frota',desc:'Custos e consumo de combustível',view:'painel'},{icon:IC.chart,title:'Painel ERP',desc:'Compras, stock e consumo',view:'painelerp'},{icon:IC.report,title:'Relatórios',desc:'Exportar Excel / PDF',view:'relatorios'},{icon:IC.hist,title:'Histórico',desc:'Auditoria de movimentos',view:'hist'}];
+  const svcs=['Construção &amp; Reabilitação','Manutenção','Instalações','Serralharia','Paisagismo'];
+  el.innerHTML=`
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-in">
+      <div class="hero-logo">${logo?`<img src="${logo}" alt="BRC">`:''}</div>
+      <div class="hero-tx">
+        <div class="hero-kick">Excelência em Construção Civil</div>
+        <h1 class="hero-h">${saud}, ${esc((CURRENT.nome||'').split(' ')[0])}.</h1>
+        <p class="hero-p">Gestão de obra · frota · combustível · procurement e armazém</p>
+        <div class="hero-proj">PIDICHNM · Lote B · ${nCentros} Centros de Saúde · Província de Nampula</div>
+      </div>
+    </div>
+    <div class="hero-stats">${stat(nCentros,'Centros de saúde')}${stat(DB.viaturas.length,'Viaturas / equip.')}${stat(fuelPend+erpAcao,'A aguardar ação')}${stat(fMT(valInv)+' MT','Valor em stock')}</div>
+  </div>
+  <div class="homewrap">
+    <div class="homesec"><span class="hstitle">Combustível &amp; Frota</span><div class="htiles">${sec1.map(homeCard).join('')}</div></div>
+    <div class="homesec"><span class="hstitle">Procurement &amp; Armazém</span><div class="htiles">${sec2.map(homeCard).join('')}</div></div>
+    <div class="homesec"><span class="hstitle">Gestão &amp; Análise</span><div class="htiles">${sec3.map(homeCard).join('')}${isDirecao(CURRENT)?homeCard({icon:IC.users,title:'Utilizadores & Papéis',desc:'Gerir a equipa e permissões',view:'painelerp'}):''}</div></div>
+    <div class="homeabout">
+      <div><b>BRC Construções, Lda.</b> — empresa moçambicana de construção civil, fundada em 2014. NUIT 400529711 · Maputo.</div>
+      <div class="chips">${svcs.map(s=>`<span class="chip">${s}</span>`).join('')}</div>
+    </div>
+  </div>`;
+}
+
+/* ---------- COMPROVATIVO DE REQUISIÇÃO (PDF via impressão) ---------- */
+function printReqVoucher(q){
+  const logo=(document.querySelector('header.app .brand img')||{}).src||'';
+  const rows=q.itens.map((i,ix)=>`<tr><td>${ix+1}</td><td>${esc(i.categoria)}</td><td>${esc(i.nome)}${i.obs?'<br><small>'+esc(i.obs)+'</small>':''}</td><td class="r">${fL(i.qtdAprovada!=null?i.qtdAprovada:i.qtd)}</td><td>${esc(i.unidade)}</td><td class="r">${fMT(i.precoUnitario)}</td><td class="r">${fMT(itemTotalAprov(i))}</td></tr>`).join('');
+  const total=reqTotal(q);const rv=q.recebimentoValor;
+  const hist=(q.historico||[]).map(h=>`${esc(h.acao)} — ${esc(h.userNome)} (${dtPT(h.data)})`).join(' · ');
+  const sign=(t)=>`<div class="sg"><div class="sgl"></div><div class="sgt">${t}</div></div>`;
+  const html=`<!doctype html><html lang="pt"><head><meta charset="utf-8"><title>${esc(q.numero)}</title>
+  <style>*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}body{margin:0;color:#1a2027;font-size:12px}
+  .pg{max-width:760px;margin:0 auto;padding:26px}
+  .hd{display:flex;align-items:center;gap:14px;border-bottom:3px solid #c81519;padding-bottom:12px}
+  .hd img{height:54px}.hd .co b{font-size:15px}.hd .co div{font-size:11px;color:#555}
+  .doc{margin-left:auto;text-align:right}.doc .n{font-size:16px;font-weight:bold;color:#9e1014}.doc .s{font-size:11px;color:#555}
+  .meta{display:flex;flex-wrap:wrap;gap:6px 26px;margin:14px 0;font-size:11.5px}.meta b{color:#000}
+  table{width:100%;border-collapse:collapse;margin-top:6px}th,td{border:1px solid #cfd3cd;padding:6px 8px;text-align:left}
+  th{background:#23282b;color:#fff;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em}
+  td.r,th.r{text-align:right}tfoot td{font-weight:bold;background:#f3f4f2}small{color:#666}
+  .pay{margin-top:12px;font-size:11.5px;border:1px solid #cfd3cd;border-radius:6px;padding:8px 10px}
+  .sgs{display:flex;gap:18px;margin-top:40px}.sg{flex:1;text-align:center}.sgl{border-top:1px solid #333;margin-bottom:5px}.sgt{font-size:10.5px;color:#333}
+  .ft{margin-top:24px;font-size:9.5px;color:#888;text-align:center;border-top:1px solid #ddd;padding-top:8px}
+  @media print{@page{margin:12mm}}
+  </style></head><body><div class="pg">
+    <div class="hd">${logo?`<img src="${logo}">`:''}<div class="co"><b>BRC Construções, Lda.</b><div>Construção civil e obras públicas · NUIT 400529711</div><div>PIDICHNM · Lote B · Nampula</div></div>
+      <div class="doc"><div class="n">${esc(q.numero)}</div><div class="s">Requisição de Materiais</div><div class="s">${dPT(q.data)}</div></div></div>
+    <div class="meta"><span><b>Obra/Projeto:</b> ${esc(q.obra)}</span><span><b>Local:</b> ${esc(q.local||'—')}</span><span><b>Departamento:</b> ${esc(q.departamento||'—')}</span><span><b>Requisitante:</b> ${esc(q.solicitanteNome)}</span><span><b>Prioridade:</b> ${esc(q.prioridade)}</span><span><b>Estado:</b> ${esc(q.estado)}</span></div>
+    ${q.justificacao?`<div style="font-size:11.5px;margin-bottom:8px"><b>Justificação:</b> ${esc(q.justificacao)}</div>`:''}
+    <table><thead><tr><th>#</th><th>Categoria</th><th>Artigo</th><th class="r">Qtd</th><th>Un</th><th class="r">Preço/un (MT)</th><th class="r">Total (MT)</th></tr></thead>
+    <tbody>${rows}</tbody><tfoot><tr><td colspan="6" class="r">VALOR TOTAL (MT)</td><td class="r">${fMT(total)}</td></tr></tfoot></table>
+    <div class="pay"><b>Pagamento:</b> ${esc(q.metodoPagamento||'—')}${q.fornecedor?` &nbsp;·&nbsp; <b>Fornecedor:</b> ${esc(q.fornecedor)}`:''}${rv&&rv.confirmado?` &nbsp;·&nbsp; <b>Valor recebido:</b> ${fMT(rv.valor)} MT via ${esc(rv.metodo)} (${esc(rv.porNome)}, ${dPT(rv.data)})`:''}</div>
+    <div class="sgs">${sign('Requisitante')}${sign('Aprovador')}${sign('Compras')}${sign('Armazém')}${sign('Direção')}</div>
+    <div class="ft">Documento gerado pela plataforma de gestão BRC · ${new Date().toLocaleString('pt-PT')}${hist?' · '+esc(hist):''}</div>
+  </div><script>window.onload=function(){setTimeout(function(){window.print();},300);}<\/script></body></html>`;
+  const w=window.open('','_blank');if(!w){toast('Permita janelas emergentes para gerar o PDF.',true);return;}
+  w.document.open();w.document.write(html);w.document.close();
+}
+
+/* ---------- RELATÓRIOS ERP (CSV / PDF) ---------- */
+function csvReqERP(){if(!DB.ereqs.length){toast('Sem requisições.',true);return;}
+  const rows=DB.ereqs.map(q=>[q.numero,dPT(q.data),q.obra,q.solicitanteNome,q.prioridade,q.estado,q.itens.length,fMT(reqTotal(q)),q.metodoPagamento||'',q.fornecedor||'',(q.recebimentoValor&&q.recebimentoValor.confirmado)?fMT(q.recebimentoValor.valor):'']);
+  dlCSV('Requisicoes_Materiais.csv',['Numero','Data','Obra','Requisitante','Prioridade','Estado','NrArtigos','Valor_total','Pagamento','Fornecedor','Valor_recebido'],rows);toast('CSV exportado.');}
+function csvInv(){if(!DB.artigos.length){toast('Inventário vazio.',true);return;}
+  const rows=DB.artigos.map(a=>[a.codigoInterno,a.nome,a.categoria,a.unidade,fL(a.qtdDisponivel),fL(a.qtdUtilizada),fL(a.qtdAdquirida),fL(a.stockMin),fMT(a.precoUnitario),fMT((a.qtdDisponivel||0)*(a.precoUnitario||0)),a.projeto||'',a.localizacao||'']);
+  dlCSV('Inventario.csv',['Codigo','Artigo','Categoria','Unidade','Disponivel','Utilizado','Adquirido','StockMin','Preco_un','Valor_stock','Obra','Localizacao'],rows);toast('CSV exportado.');}
+function csvMovs(){if(!DB.movimentos.length){toast('Sem movimentos.',true);return;}
+  const rows=DB.movimentos.map(m=>[dPT(m.data),m.artigoNome,m.tipo,(m.sinal>0?'+':'-')+fL(m.qtd),m.obra||'',fMT(m.precoUnit),fMT(m.custo),m.userNome||'',m.dest||m.notas||'']);
+  dlCSV('Movimentos_Stock.csv',['Data','Artigo','Tipo','Qtd','Obra','Preco_un','Custo','Por','Ref'],rows);toast('CSV exportado.');}
+function printInv(){const logo=(document.querySelector('header.app .brand img')||{}).src||'';
+  const arr=[...DB.artigos].sort((a,b)=>a.nome.localeCompare(b.nome));const tot=arr.reduce((s,a)=>s+(a.qtdDisponivel||0)*(a.precoUnitario||0),0);
+  const rows=arr.map(a=>`<tr><td>${esc(a.codigoInterno)}</td><td>${esc(a.nome)}</td><td>${esc(a.categoria)}</td><td class="r">${fL(a.qtdDisponivel)}</td><td>${esc(a.unidade)}</td><td class="r">${fMT(a.precoUnitario)}</td><td class="r">${fMT((a.qtdDisponivel||0)*(a.precoUnitario||0))}</td></tr>`).join('');
+  const html=`<!doctype html><html lang="pt"><head><meta charset="utf-8"><title>Inventário</title><style>*{font-family:Arial}body{margin:0;font-size:12px}.pg{padding:26px}.hd{display:flex;align-items:center;gap:12px;border-bottom:3px solid #c81519;padding-bottom:10px}.hd img{height:48px}table{width:100%;border-collapse:collapse;margin-top:12px}th,td{border:1px solid #ccc;padding:5px 7px}th{background:#23282b;color:#fff;font-size:10px;text-transform:uppercase}.r{text-align:right}tfoot td{font-weight:bold;background:#f3f4f2}@media print{@page{margin:12mm}}</style></head><body><div class="pg"><div class="hd">${logo?`<img src="${logo}">`:''}<div><b>BRC Construções, Lda.</b><div style="font-size:11px;color:#555">Relatório de Inventário · ${new Date().toLocaleDateString('pt-PT')}</div></div></div><table><thead><tr><th>Código</th><th>Artigo</th><th>Categoria</th><th class="r">Disponível</th><th>Un</th><th class="r">Preço/un</th><th class="r">Valor stock</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td colspan="6" class="r">VALOR TOTAL DO INVENTÁRIO (MT)</td><td class="r">${fMT(tot)}</td></tr></tfoot></table></div><script>window.onload=function(){setTimeout(function(){window.print();},300);}<\/script></body></html>`;
+  const w=window.open('','_blank');if(!w){toast('Permita janelas emergentes.',true);return;}w.document.open();w.document.write(html);w.document.close();}
+$('#erpCsvReq')&&($('#erpCsvReq').onclick=csvReqERP);
+$('#erpCsvInv')&&($('#erpCsvInv').onclick=csvInv);
+$('#erpCsvMov')&&($('#erpCsvMov').onclick=csvMovs);
+$('#erpPrintInv')&&($('#erpPrintInv').onclick=printInv);
+
+/* ================= ENTERPRISE: tema, pesquisa, insights, orçamentos, RFQ ================= */
+
+/* ---------- Tema (claro/escuro) ---------- */
+function applyThemeIcon(){const dark=document.documentElement.getAttribute('data-theme')==='dark';const b=$('#btnTheme');if(b)b.textContent=dark?'☀️':'🌙';}
+$('#btnTheme')&&($('#btnTheme').onclick=()=>{const dark=document.documentElement.getAttribute('data-theme')==='dark';if(dark){document.documentElement.removeAttribute('data-theme');try{localStorage.setItem('frota:tema','light');}catch(e){}}else{document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('frota:tema','dark');}catch(e){}}applyThemeIcon();});
+applyThemeIcon();
+
+/* ---------- Pesquisa global ---------- */
+let gsLast=[];
+function gsSearch(term){const box=$('#gs-results');if(!box)return;term=(term||'').trim().toLowerCase();if(term.length<2){box.innerHTML='<p style="color:var(--muted);font-size:13px">Escreva pelo menos 2 letras…</p>';gsLast=[];return;}
+  const res=[];
+  DB.ereqs.forEach(q=>{if((q.numero+' '+q.obra+' '+q.solicitanteNome+' '+q.estado+' '+q.itens.map(i=>i.nome).join(' ')).toLowerCase().includes(term))res.push({t:'REQ',main:q.numero+' · '+q.estado,sub:q.obra+' · '+fMT(reqTotal(q))+' MT',go:'erpreq',open:()=>openReqDetail(q.id)});});
+  DB.artigos.forEach(a=>{if((((a.codigoInterno||'')+' '+a.nome+' '+(a.categoria||''))).toLowerCase().includes(term))res.push({t:'ART',main:a.nome,sub:(a.codigoInterno||'')+' · disp '+fL(a.qtdDisponivel)+' '+a.unidade+' · '+fMT((a.qtdDisponivel||0)*(a.precoUnitario||0))+' MT',go:'inv'});});
+  DB.fornecedores.forEach(f=>{if((f.nome+' '+(f.contacto||'')+' '+(f.nuit||'')).toLowerCase().includes(term))res.push({t:'FOR',main:f.nome,sub:(f.contacto||'—'),go:'forn'});});
+  DB.movimentos.forEach(m=>{if((((m.artigoNome||'')+' '+(m.tipo||'')+' '+(m.obra||''))).toLowerCase().includes(term))res.push({t:'MOV',main:(m.artigoNome||'')+' · '+m.tipo,sub:dPT(m.data)+' · '+(m.sinal>0?'+':'−')+fL(m.qtd),go:'mov'});});
+  DB.abastecimentos.forEach(a=>{if((((typeof vName==='function'?vName(a.viaturaId):'')+' '+(a.obra||'')+' '+(a.finalidade||''))).toLowerCase().includes(term))res.push({t:'COMB',main:(typeof vName==='function'?vName(a.viaturaId):'Abastecimento')+' · '+fL(a.litros)+'L',sub:dPT(a.data)+' · '+fMT(a.custo)+' MT',go:'abast'});});
+  gsLast=res.slice(0,50);
+  box.innerHTML=gsLast.length?gsLast.map((r,ix)=>`<button class="htile" style="width:100%;margin-bottom:7px" data-gsidx="${ix}"><span class="htic" style="width:40px;height:40px;font-size:10px;font-weight:800">${r.t}</span><span class="httx"><span class="htt">${esc(r.main)}</span><span class="htd">${esc(r.sub)}</span></span><span class="htgo">→</span></button>`).join(''):'<p style="color:var(--muted);font-size:13px">Sem resultados.</p>';
+}
+$('#btnSearch')&&($('#btnSearch').onclick=()=>{$('#searchOverlay').style.display='flex';const i=$('#gs-input');if(i){i.value='';gsSearch('');setTimeout(()=>i.focus(),50);}});
+$('#gs-close')&&($('#gs-close').onclick=()=>{$('#searchOverlay').style.display='none';});
+$('#gs-input')&&$('#gs-input').addEventListener('input',e=>gsSearch(e.target.value));
+
+/* ---------- Insights (IA heurística) ---------- */
+function renderInsights(){const el=$('#erpInsights');if(!el)return;const ins=[];
+  const byArt={};DB.movimentos.filter(m=>m.tipo==='Compra'&&m.precoUnit>0).forEach(m=>{(byArt[m.artigoId]=byArt[m.artigoId]||[]).push(m);});
+  Object.values(byArt).forEach(arr=>{if(arr.length>=3){const ps=arr.map(m=>m.precoUnit);const mean=ps.reduce((a,b)=>a+b,0)/ps.length;const sd=Math.sqrt(ps.reduce((a,b)=>a+(b-mean)*(b-mean),0)/ps.length);const last=arr[0];if(sd>0&&last.precoUnit>mean+1.5*sd)ins.push({ic:'⚠️',w:1,txt:`<b>Preço fora do padrão:</b> ${esc(last.artigoNome)} comprado a ${fMT(last.precoUnit)} MT (média ${fMT(mean)} MT). Reavaliar fornecedor ou pedir nova cotação.`});}});
+  const pend=DB.ereqs.filter(q=>['Submetida','Em aprovação','Aprovada'].includes(q.estado));const artReqs={};
+  pend.forEach(q=>q.itens.forEach(i=>{const k=(i.nome||'').toLowerCase();(artReqs[k]=artReqs[k]||{nome:i.nome,reqs:new Set(),qtd:0});artReqs[k].reqs.add(q.numero);artReqs[k].qtd+=toNum(i.qtdAprovada!=null?i.qtdAprovada:i.qtd);}));
+  Object.values(artReqs).forEach(x=>{if(x.reqs.size>=2)ins.push({ic:'🧩',w:0,txt:`<b>Consolidação de compra:</b> ${esc(x.nome)} pedido em ${x.reqs.size} requisições (${fL(x.qtd)} un no total). Comprar em conjunto pode reduzir o custo.`});});
+  const consByArt={};DB.movimentos.filter(m=>m.tipo==='Consumo em obra').forEach(m=>{const mo=(m.data||'').slice(0,7);(consByArt[m.artigoId]=consByArt[m.artigoId]||{})[mo]=((consByArt[m.artigoId]||{})[mo]||0)+m.qtd;});
+  Object.entries(consByArt).forEach(([id,months])=>{const vals=Object.values(months);if(vals.length>=2){const avg=vals.reduce((a,b)=>a+b,0)/vals.length;const a=artObj(id);if(a&&a.qtdDisponivel<avg)ins.push({ic:'📉',w:1,txt:`<b>Reposição sugerida:</b> ${esc(a.nome)} — consumo médio ${fL(avg)}/mês, disponível ${fL(a.qtdDisponivel)} ${esc(a.unidade)}. Programar nova aquisição.`});}});
+  (DB.orcamentos||[]).forEach(o=>{const c=orcConsumido(o);if(o.valor>0&&c>o.valor)ins.push({ic:'🚨',w:1,txt:`<b>Orçamento excedido:</b> ${esc(o.obra)}${o.categoria?' / '+esc(o.categoria):''} — gasto ${fMT(c)} MT de ${fMT(o.valor)} MT (${Math.round(c/o.valor*100)}%).`});else if(o.valor>0&&c>o.valor*0.85)ins.push({ic:'⏳',w:1,txt:`<b>Orçamento quase esgotado:</b> ${esc(o.obra)}${o.categoria?' / '+esc(o.categoria):''} — ${Math.round(c/o.valor*100)}% utilizado.`});});
+  ins.sort((a,b)=>b.w-a.w);
+  el.innerHTML=ins.length?ins.slice(0,14).map(i=>`<div style="display:flex;gap:10px;padding:10px 12px;border:1px solid var(--line);border-left:3px solid ${i.w?'var(--amber)':'var(--brand)'};border-radius:8px;margin-bottom:8px"><span style="font-size:16px">${i.ic}</span><span style="font-size:12.5px">${i.txt}</span></div>`).join(''):'<p style="color:var(--muted);font-size:13px">Sem recomendações de momento. À medida que registar compras, consumos e orçamentos, aparecerão insights automáticos (preços fora do padrão, consolidações, reposições e desvios orçamentais).</p>';
+}
+
+/* ---------- Controlo orçamental ---------- */
+function orcConsumido(o){return DB.movimentos.filter(m=>m.tipo==='Compra'&&m.obra===o.obra&&(!o.categoria||m.categoria===o.categoria)).reduce((s,m)=>s+(m.custo||0),0);}
+$('#o-save')&&($('#o-save').onclick=async()=>{const obra=$('#o-obra').value,cat=$('#o-cat').value,valor=toNum($('#o-valor').value);if(!obra){toast('Selecione a obra.',true);return;}if(valor<=0){toast('Indique o valor do orçamento.',true);return;}
+  let o=DB.orcamentos.find(x=>x.obra===obra&&(x.categoria||'')===(cat||''));if(o){o.valor=valor;}else{o={id:uid(),obra,categoria:cat,valor,criadoEm:new Date().toISOString()};DB.orcamentos.push(o);}
+  await commit('orcamentos',KEYS.eorc);await logAudit('editado','Orçamento',`${obra}${cat?' / '+cat:''}: ${fMT(valor)} MT`);$('#o-valor').value='';renderERP();toast('Orçamento definido.');});
+function renderBudgets(){const el=$('#erpBudgets');if(!el)return;if(!DB.orcamentos.length){el.innerHTML='<p style="color:var(--muted);font-size:13px">Sem orçamentos definidos. Defina um limite por obra (e opcionalmente por categoria) para acompanhar o gasto em tempo real.</p>';return;}
+  el.innerHTML=DB.orcamentos.map(o=>{const c=orcConsumido(o);const pct=o.valor>0?Math.min(100,c/o.valor*100):0;const over=c>o.valor;const col=over?'var(--brand)':pct>85?'var(--amber)':'var(--good)';
+    return `<div class="barrow" style="align-items:flex-start"><span class="bl" style="width:190px" title="${esc(o.obra)}">${esc(o.obra)}${o.categoria?'<br><small style="color:var(--muted)">'+esc(o.categoria)+'</small>':''}</span><div class="bartrack" style="height:16px"><div class="barfill" style="width:${pct.toFixed(1)}%;background:${col}"></div></div><span class="bv" style="min-width:170px">${fMT(c)} / ${fMT(o.valor)} MT ${over?'· <b style="color:var(--brand)">EXCEDIDO</b>':'('+Math.round(pct)+'%)'} <button class="iconbtn del" data-odel="${o.id}" style="margin-left:6px">✕</button></span></div>`;}).join('');
+}
+
+/* ---------- Cotações / RFQ + comparação ---------- */
+function openRFQ(q){reqOpenId=q.id;q.cotacoes=q.cotacoes||[];const best=q.cotacoes.length?Math.min(...q.cotacoes.map(c=>c.valor)):null;
+  $('#rfqSub').textContent=q.numero+' · '+q.itens.length+' artigo(s) · estimativa '+fMT(reqTotal(q))+' MT';
+  $('#rfqList').innerHTML=q.cotacoes.length?`<div class="tablewrap"><table><thead><tr><th>Fornecedor</th><th class="r">Valor (MT)</th><th>Prazo</th><th>Nota</th><th></th></tr></thead><tbody>${q.cotacoes.slice().sort((a,b)=>a.valor-b.valor).map(c=>`<tr${c.valor===best?' style="background:var(--brand-soft)"':''}><td>${esc(c.fornecedor)}${c.valor===best?' <span class="st apr">melhor</span>':''}</td><td class="r"><b>${fMT(c.valor)}</b></td><td>${esc(c.prazo||'—')}</td><td>${esc(c.nota||'—')}</td><td><div class="rowact"><button class="iconbtn" data-rfqpick="${c.id}">Escolher</button><button class="iconbtn del" data-rfqdel="${c.id}">✕</button></div></td></tr>`).join('')}</tbody></table></div>`:'<p style="color:var(--muted);font-size:13px">Sem cotações. Adicione propostas de vários fornecedores para comparar automaticamente.</p>';
+  $('#rfq-forn').innerHTML='<option value="">— Fornecedor —</option>'+DB.fornecedores.map(f=>`<option>${esc(f.nome)}</option>`).join('')+'<option value="__novo">+ Outro (escrever)</option>';
+  $('#rfqOverlay').style.display='flex';
+}
+$('#rfq-forn')&&$('#rfq-forn').addEventListener('change',e=>{$('#rfq-forn-novo').style.display=e.target.value==='__novo'?'':'none';});
+$('#rfq-add')&&($('#rfq-add').onclick=async()=>{const q=DB.ereqs.find(x=>x.id===reqOpenId);if(!q)return;let forn=$('#rfq-forn').value;if(forn==='__novo')forn=$('#rfq-forn-novo').value.trim();const valor=toNum($('#rfq-valor').value);if(!forn){toast('Indique o fornecedor.',true);return;}if(valor<=0){toast('Indique o valor da cotação.',true);return;}
+  q.cotacoes=q.cotacoes||[];q.cotacoes.push({id:uid(),fornecedor:forn,valor,prazo:$('#rfq-prazo').value.trim(),nota:$('#rfq-nota').value.trim(),criadoEm:new Date().toISOString()});
+  addHist(q,'Cotação registada',`${forn}: ${fMT(valor)} MT`);await commit('ereqs',KEYS.ereq);await logAudit('adicionado','Cotação',`${q.numero} · ${forn} · ${fMT(valor)} MT`);
+  ['rfq-valor','rfq-prazo','rfq-nota','rfq-forn-novo'].forEach(i=>$('#'+i)&&($('#'+i).value=''));openRFQ(q);renderERP();toast('Cotação adicionada.');});
+$('#rfq-close')&&($('#rfq-close').onclick=()=>{$('#rfqOverlay').style.display='none';});
+
+/* ---------- Notificações WhatsApp (wa.me) ---------- */
+function waDigits(num){let d=(num||'').replace(/[^0-9]/g,'');if(d.indexOf('00')===0)d=d.slice(2);if(d.length===9&&d[0]==='8')d='258'+d;return d;}
+function waURL(num,msg){return 'https://wa.me/'+waDigits(num)+'?text='+encodeURIComponent(msg);}
+function direcaoWA(){return DB.users.filter(u=>isDirecao(u)&&u.whatsapp).map(u=>({nome:u.nome,whatsapp:u.whatsapp}));}
+function userWA(id){const u=DB.users.find(x=>x.id===id);return u&&u.whatsapp?[{nome:u.nome,whatsapp:u.whatsapp}]:[];}
+let waMsgCache='';
+function openWA(recipients,msg,titulo){recipients=(recipients||[]).filter(r=>r&&r.whatsapp);waMsgCache=msg;
+  if(!recipients.length){toast('Destinatário sem WhatsApp definido. A Direção pode adicionar em “Utilizadores & papéis”.');return;}
+  $('#waTitle').textContent=titulo||'Notificar por WhatsApp';$('#waMsg').textContent=msg;
+  $('#waList').innerHTML=recipients.map(r=>`<button class="btn good" style="width:100%;margin-bottom:8px" data-wa="${esc(waURL(r.whatsapp,msg))}">📲 Enviar a ${esc(r.nome)} · ${esc(r.whatsapp)}</button>`).join('');
+  $('#waOverlay').style.display='flex';}
+function msgReqNova(q){return `*BRC — Nova Requisição*\n${q.numero}\nObra: ${q.obra}\nRequisitante: ${q.solicitanteNome}\nArtigos: ${q.itens.length} · Total: ${fMT(reqTotal(q))} MT\nPrioridade: ${q.prioridade}\n\nPor favor rever e aprovar na plataforma BRC.`;}
+function msgReqAprovada(q){return `*BRC — Requisição Aprovada* \u2705\n${q.numero} foi APROVADA por ${CURRENT?CURRENT.nome:''}.\nObra: ${q.obra}\nArtigos: ${q.itens.length} · Total: ${fMT(reqTotal(q))} MT\n\nSegue para compras/armazém.`;}
+$('#wa-close')&&($('#wa-close').onclick=()=>{$('#waOverlay').style.display='none';});
+$('#wa-copy')&&($('#wa-copy').onclick=()=>{try{navigator.clipboard.writeText(waMsgCache);toast('Mensagem copiada.');}catch(e){toast('Não foi possível copiar.',true);}});
+document.addEventListener('change',async e=>{const t=e.target;if(t&&t.dataset&&t.dataset.waedit){const u=DB.users.find(x=>x.id===t.dataset.waedit);if(u){u.whatsapp=t.value.trim();await commit('users',KEYS.u);toast('WhatsApp guardado para '+u.nome.split(' ')[0]+'.');}}});
+
 /* ---------- orquestração ---------- */
 function renderErpBadges(){const b=$('#erpReqBadge');if(!b)return;const n=DB.ereqs.filter(reqPodeAgir).length;if(n>0){b.style.display='';b.textContent=n;}else b.style.display='none';}
-function renderERP(){if(!CURRENT)return;buildERPSelectors();renderErpDashboard();renderErpReqList();renderInv();renderMov();renderForn();renderErpBadges();renderNotifBadge();}
-function onSwitchERP(name){if(['painelerp','erpreq','inv','mov','forn'].includes(name))renderERP();}
+function renderERP(){if(!CURRENT)return;buildERPSelectors();renderHome();renderErpDashboard();renderInsights();renderBudgets();renderErpReqList();renderInv();renderMov();renderForn();renderErpBadges();renderNotifBadge();}
+function onSwitchERP(name){if(name==='home')renderHome();if(['painelerp','erpreq','inv','mov','forn'].includes(name))renderERP();}
 
 /* ---------- arranque ---------- */
 if($('#e-data'))$('#e-data').value=todayISO();
 if($('#m-data'))$('#m-data').value=todayISO();
 init();
-
 </script>
 <script>
 var deferredPrompt=null;
